@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>jacksmith | slope-game.github.io</title>
-    <link rel="icon" href="img/favicon.png">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7889675448259925" crossorigin="anonymous"></script>
-    <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruffle Player</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    #ruffle-container {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script src="./ruffle.js"></script>
 </head>
-
 <body>
-    <iframe id="game-frame" src="https://slope-game.github.io/new5923/flash.html?game=jacksmith" allow="autoplay" scrolling="no" allowfullscreen></iframe>
-    <script>
-        window.addEventListener('load', function () {
-            document.getElementById('game-frame').contentWindow.location.reload(true);
-        });
-    </script>
+<div id="ruffle-container"></div>
+<script>
+    const rufflePlayer = RufflePlayer.createPlayer({
+        'swfUrl': 'jacksmithpro.swf',
+        'parameters': {
+            'bgcolor': '#000000', // Màu nền của ứng dụng
+            'scale': 'noscale', // Tùy chỉnh tỷ lệ
+            'menu': 'false', // Hiển thị menu Flash
+            'allowFullscreen': 'true' // Cho phép chế độ toàn màn hình
+        },
+        'container': 'ruffle-container'
+    });
+</script>
 </body>
-
 </html>
