@@ -1,15 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="./icon32.png" sizes="32x32">
-    <link rel="icon" href="./icon180.png" sizes="180x180">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ruffle Player</title>
-    <script type="module" crossorigin src="./assets/index-qeHi_TFW.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-LVuBIMl1.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AwayFL Embed Example</title>
+    <script src="../dist/embed.js"></script>
+</head>
+<body>
+    <div id = 'container'>
+
+    </div>
+
+    <script>
+        window.AWAY_EMBED_CFG = {}
+        swfObject.embedSWF('Embedded.swf', 'container', 550, 400);
+    </script>
+</body>
 </html>
