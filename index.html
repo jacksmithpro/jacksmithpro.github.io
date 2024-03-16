@@ -5,15 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AwayFL Embed Example</title>
     <script src="../dist/embed.js"></script>
+    <style>
+        .game-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            user-select: none; /* Prevents text selection */
+        }
+    </style>
 </head>
 <body>
-    <div id = 'container'>
-
+    <div id='container'></div>
+    <div>
+        <div id="buttonA" class="game-button">A</div>
+        <div id="buttonS" class="game-button">S</div>
     </div>
 
     <script>
         window.AWAY_EMBED_CFG = {}
-        swfObject.embedSWF('jacksmith.swf', 'container', 480, 360);
+        swfObject.embedSWF('hobo.swf', 'container', 1172, 878);
+
+        // This is a simplified version and might not work in all browsers or situations
+        function simulateKeyPress(character) {
+            var event = new KeyboardEvent('keydown', {'key': character});
+            
+            document.dispatchEvent(event);
+        }
+
+        document.getElementById('buttonA').addEventListener('click', function() {
+            simulateKeyPress('a');
+        });
+
+        document.getElementById('buttonS').addEventListener('click', function() {
+            simulateKeyPress('s');
+        });
     </script>
 </body>
 </html>
