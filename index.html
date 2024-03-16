@@ -28,20 +28,30 @@
         window.AWAY_EMBED_CFG = {}
         swfObject.embedSWF('hobo.swf', 'container', 1172, 878);
 
-        // This is a simplified version and might not work in all browsers or situations
         function simulateKeyPress(character) {
             var event = new KeyboardEvent('keydown', {'key': character});
             
+            // Attempt to refocus on the game container or the SWF object itself
+            var gameContainer = document.getElementById('container');
+            gameContainer.focus();
             document.dispatchEvent(event);
         }
 
-        document.getElementById('buttonA').addEventListener('click', function() {
-            simulateKeyPress('a');
-        });
+        function handleButtonClick(e) {
+            e.preventDefault(); // Prevent default button click behavior
+            simulateKeyPress(this.getAttribute('data-key'));
+            // Refocus on the game container or SWF object after the click
+            var gameContainer = document.getElementById('container');
+            setTimeout(function() {
+                gameContainer.focus();
+            }, 100); // Delay might be necessary for the focus to properly work
+        }
 
-        document.getElementById('buttonS').addEventListener('click', function() {
-            simulateKeyPress('s');
-        });
+        document.getElementById('buttonA').setAttribute('data-key', 'a');
+        document.getElementById('buttonA').addEventListener('click', handleButtonClick);
+
+        document.getElementById('buttonS').setAttribute('data-key', 's');
+        document.getElementById('buttonS').addEventListener('click', handleButtonClick);
     </script>
 </body>
 </html>
