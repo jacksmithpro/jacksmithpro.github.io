@@ -7,38 +7,13 @@
     <script src="../dist/embed.js"></script>
 </head>
 <body>
-    <div id='container' style="width: 1172px; height: 878px; background-color: #eee; cursor: pointer;">
+    <div id = 'container'>
+
     </div>
 
     <script>
         window.AWAY_EMBED_CFG = {}
         swfObject.embedSWF('hobo.swf', 'container', 1172, 878);
-
-        function simulateKeyPress(character) {
-            var evt = new KeyboardEvent('keydown', {
-                key: character,
-                keyCode: character.charCodeAt(0),
-                which: character.charCodeAt(0),
-                shiftKey: false,
-                ctrlKey: false,
-                altKey: false,
-                metaKey: false,
-                bubbles: true,
-            });
-            document.dispatchEvent(evt);
-        }
-
-        // Thêm sự kiện click vào div có id 'container'
-        document.getElementById('container').addEventListener('click', function() {
-            simulateKeyPress('a');
-        });
-
-        // (Tùy chọn) Lắng nghe sự kiện keydown để kiểm tra việc mô phỏng
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'a') {
-                console.log("Phím 'a' đã được mô phỏng nhấn.");
-            }
-        });
     </script>
 </body>
 </html>
