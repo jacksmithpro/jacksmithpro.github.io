@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AwayFL Embed Example</title>
     <script src="/dist/embed.js"></script>
     <style>
-        /* Thiết lập cho body */
+        /* Thiết lập cho body và html */
         body, html {
             height: 100%;
             margin: 0;
@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             background-color: #000; /* Màu nền, có thể thay đổi */
+            overflow: hidden; /* Ẩn thanh cuộn */
         }
         
         /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
