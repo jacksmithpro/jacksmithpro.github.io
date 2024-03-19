@@ -22,7 +22,8 @@
         /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
         #container {
             width: 100vw;  /* Chiều rộng toàn màn hình */
-            height: 100vh; /* Chiều cao toàn màn hình */
+            height: 100vh;
+            transform: scale(1.36, 1); /* Chiều cao toàn màn hình */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,7 +37,7 @@
     </style>
 </head>
 <body>
-    <div id='container' style='transform: scale(1.4, 1);'>
+    <div id='container'>
         <!-- Nội dung SWF sẽ được đặt ở đây -->
     </div>
 
