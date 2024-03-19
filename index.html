@@ -13,8 +13,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000; /* Màu nền, có thể thay đổi */
             overflow: hidden; /* Ẩn thanh cuộn */
+            -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
         }
         
         /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
@@ -33,7 +35,7 @@
         }
     </style>
 </head>
-<body style="background-image:url('bg.jpg')">
+<body>
     <div id='container'>
         <!-- Nội dung SWF sẽ được đặt ở đây -->
     </div>
