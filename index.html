@@ -6,29 +6,27 @@
     <title>JackSmith</title>
     <script src="/dist/embed.js"></script>
     <style>
-        /* Thiết lập cho body và html */
         body, html {
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000; /* Màu nền, có thể thay đổi */
-            overflow: hidden; /* Ẩn thanh cuộn */
-              -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+            background-color: #000;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
-        /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
         #container {
-            width: 100vw;  /* Chiều rộng toàn màn hình */
-            height: 100vh; /* Chiều cao toàn màn hình */
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Quan trọng: Bỏ thuộc tính transform ở đây */
         }
         
-        /* Áp dụng cho thẻ embed (nếu cần) */
         embed {
             max-width: 100%;
             max-height: 100%;
@@ -36,13 +34,28 @@
     </style>
 </head>
 <body>
-    <div id='container' style='transform: scale(1.4, 1);'>
+    <div id='container' style="left:0">
         <!-- Nội dung SWF sẽ được đặt ở đây -->
     </div>
 
     <script>
         window.AWAY_EMBED_CFG = {}
         swfObject.embedSWF('luoiho.swf', 'container', '100%', '100%');
+
+        function adjustScale() {
+            var container = document.getElementById('container');
+            var viewportWidth = window.innerWidth;
+            var originalWidth = 480; // Chiều rộng mặc định bạn muốn
+            var scale = viewportWidth / originalWidth; // Tính tỉ lệ scale
+            console.log(scale);
+            container.style.transform = 'scale(' + scale + ',1)';
+            console.log('scale(' + scale + ',1)')
+             // Áp dụng tỉ lệ scale
+            container.style.transformOrigin = 'top left'; // Đặt điểm gốc của việc biến đổi
+        }
+
+        window.addEventListener('resize', adjustScale); // Điều chỉnh tỉ lệ khi cửa sổ được thay đổi kích thước
+        adjustScale(); // Gọi một lần khi tải trang
     </script>
 </body>
 </html>
