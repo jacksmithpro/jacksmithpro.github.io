@@ -47,7 +47,10 @@
             var viewportWidth = window.innerWidth;
             var originalWidth = 480; // Chiều rộng mặc định bạn muốn
             var scale = viewportWidth / originalWidth; // Tính tỉ lệ scale
-            container.style.transform = 'scale(' + scale + ')'; // Áp dụng tỉ lệ scale
+            console.log(scale);
+            container.style.transform = 'scale(' + scale + ',1)';
+            console.log('scale(' + scale + ',1)')
+             // Áp dụng tỉ lệ scale
             container.style.transformOrigin = 'top left'; // Đặt điểm gốc của việc biến đổi
         }
 
