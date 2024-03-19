@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AwayFL Embed Example</title>
+    <title>JackSmith</title>
     <script src="/dist/embed.js"></script>
     <style>
         /* Thiết lập cho body và html */
         body, html {
-            height:100%;
-            background-color:black;
+            height: 100%;
+            margin: 0;
+            display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #000; /* Màu nền, có thể thay đổi */
             overflow: hidden; /* Ẩn thanh cuộn */
-            -webkit-user-select: none; /* Safari */
+              -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
         }
         
         /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
         #container {
-            width: 100wd;  /* Chiều rộng toàn màn hình */
-            height: 100wh; /* Chiều cao toàn màn hình */
+            width: 100vw;  /* Chiều rộng toàn màn hình */
+            height: 100vh; /* Chiều cao toàn màn hình */
+            display: flex;
             justify-content: center;
             align-items: center;
         }
@@ -29,7 +32,7 @@
         /* Áp dụng cho thẻ embed (nếu cần) */
         embed {
             max-width: 100%;
-            max-height: 60%;
+            max-height: 100%;
         }
     </style>
 </head>
@@ -40,7 +43,7 @@
 
     <script>
         window.AWAY_EMBED_CFG = {}
-        swfObject.embedSWF('luoiho.swf', 'container', '100%', '100%');
+        swfObject.embedSWF('luoiho.swf', 'container', '120%', '90%');
     </script>
 </body>
 </html>
