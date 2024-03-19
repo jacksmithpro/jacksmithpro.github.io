@@ -43,19 +43,21 @@
         swfObject.embedSWF('luoiho.swf', 'container', '100%', '100%');
 
         function adjustScale() {
-            var container = document.getElementById('container');
-            var viewportWidth = window.innerWidth;
-            var originalWidth = 480; // Chiều rộng mặc định bạn muốn
-            var scale = viewportWidth / originalWidth; // Tính tỉ lệ scale
-            console.log(scale);
-            container.style.transform = 'scale(' + scale + ',1)';
-            console.log('scale(' + scale + ',1)')
-             // Áp dụng tỉ lệ scale
-            container.style.transformOrigin = 'top left'; // Đặt điểm gốc của việc biến đổi
-        }
+    var container = document.getElementById('container');
+    var viewportWidth = window.innerWidth;
+    var originalWidth = 480; // Chiều rộng mặc định bạn muốn
+    var scale = viewportWidth / originalWidth; // Tính tỉ lệ scale
 
-        window.addEventListener('resize', adjustScale); // Điều chỉnh tỉ lệ khi cửa sổ được thay đổi kích thước
-        adjustScale(); // Gọi một lần khi tải trang
+    // Làm tròn nhỏ tỉ lệ scale đến 2 chữ số sau dấu phẩy
+    scale = Math.floor(scale * 100) / 100;
+
+    container.style.transform = 'scale(' + scale + ')';
+    container.style.transformOrigin = 'top left'; // Đặt điểm gốc của việc biến đổi
+}
+
+window.addEventListener('resize', adjustScale); // Điều chỉnh tỉ lệ khi cửa sổ được thay đổi kích thước
+adjustScale(); // Gọi một lần khi tải trang
+
     </script>
 </body>
 </html>
