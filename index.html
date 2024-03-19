@@ -51,7 +51,7 @@
     // Làm tròn nhỏ tỉ lệ scale đến 2 chữ số sau dấu phẩy
     scale = Math.floor(scale * 100) / 100;
 
-    container.style.transform = 'scale(' + scale + ')';
+    container.style.transform = 'scale(' + scale + ', 1)';
     container.style.transformOrigin = 'top left'; // Đặt điểm gốc của việc biến đổi
 }
 
