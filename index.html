@@ -2,49 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JackSmith</title>
-    <script src="/dist/embed.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashJackSmith</title>
     <style>
-        /* Thiết lập cho body và html */
         body, html {
-       
-            width:100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000; /* Màu nền, có thể thay đổi */
-            overflow: hidden; /* Ẩn thanh cuộn */
-              -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
-        
-        /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
         #container {
-            width: 100vw;  /* Chiều rộng toàn màn hình */
-            height: 100vh;
-            transform: scale(1.36, 0.96); /* Chiều cao toàn màn hình */
+            transform: scale(1.36, 0.96);
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        
-        /* Áp dụng cho thẻ embed (nếu cần) */
-        embed {
-            max-width: 100%;
-            max-height: 100%;
+            background-color: black;
         }
     </style>
 </head>
 <body>
-    <div id='container'>
-        <!-- Nội dung SWF sẽ được đặt ở đây -->
+    <div id="container">
+        <!-- Ruffle Player will be added here -->
     </div>
-
+    <script src="./ruffle/ruffle.js"></script>
     <script>
-        window.AWAY_EMBED_CFG = {}
-        swfObject.embedSWF('luoiho.swf', 'container', '100%', '100%');
+        window.onload = function() {
+            var ruffle = window.RufflePlayer.newest();
+            var player = ruffle.createPlayer();
+            var container = document.getElementById("container");
+            container.appendChild(player);
+            player.load("./jacksmith.swf");
+
+            // Fullscreen mode on double click
+            player.addEventListener("dblclick", function() {
+                player.requestFullscreen();
+            });
+        };
     </script>
 </body>
 </html>
