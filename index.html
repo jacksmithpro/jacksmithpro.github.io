@@ -262,9 +262,33 @@
     </div>
     <div id="iPopupSettings" class="overflow popup-init">
         <div class="popup">
-         
+           
             <div id="iSettingsBody" class="popup-body">
-                
+                <div class="online">
+                    <h3 class="ui-title" data-l10n-id="lb_theme">Choose Theme</h3>
+                    <div class="select">
+                        <button id="bt_theme" class="select-button" data-num="1">
+                            <img id="select_theme_img" alt="select theme" class="w60 fl" src="Images/animals/theme.png">
+                            <span id="select_theme" class="pt18">Animals</span>
+                            <img alt="dropdown" class="icon fr shadow" src="Images/down.svg">
+                        </button>
+                    </div>
+    
+                    </div>
+                    <div data-role="popup" id="popupTheme" data-history="false" class="dn">
+                        <ul data-role="listview">
+                            <li><a href="#">
+                                <img id="t_europe2" src="Images/loading.svg" alt="europe">
+                                <h2 data-l10n-id="lb_europe" class="pt10">Europe</h2></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="b_tit_image_input" class="dn">
+                        <h3 class="ui-title" data-l10n-id="lb_image">Choose Image</h3>
+                        <input type="file" id="b_image_input" accept="image/*" class="dn">
+                    </div>
+                </div>
 
                 <h3 class="ui-title" data-l10n-id="lb_settings">Settings</h3>
 
