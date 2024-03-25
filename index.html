@@ -67,11 +67,15 @@
             <img id="img_title" src="Images/title1.png" alt="grrd's Puzzle"/>
             <div class="fr">
                 <div class="mini-buttonlist">
-                   
+                    <button id="iInfo" class="mini-button" style="display: none;">
+                        <img class="mini-img shadow" src="Images/info.svg" alt="Info">
+                    </button>
                     <button id="iSettings" class="mini-button">
                         <img class="mini-img shadow" src="Images/settings.svg" alt="Settings">
                     </button>
-             
+                    <button id="iFullscreen" class="mini-button" style="display: none;">
+                        <img id="img_fullscreen" class="mini-img shadow" src="Images/fullscreen.svg" alt="Fullscreen">
+                    </button>
                 </div>
             </div>
         </header>
@@ -259,10 +263,12 @@
     </div>
     <div id="iPopupSettings" class="overflow popup-init">
         <div class="popup">
-            
+            <div class="popup-head">
+                <img class="popup-title" src="Images/title_wide.png" alt="grrd's Puzzle"/>
+            </div>
             <div id="iSettingsBody" class="popup-body">
-                <div class="online">
-                    <div class="select">
+                <div class="online" >
+                    <div class="select" style="display: none;">
                         <button id="bt_theme" class="select-button" data-num="1">
                             <img id="select_theme_img" alt="select theme" class="w60 fl" src="Images/animals/theme.png">
                             <span id="select_theme" class="pt18">Animals</span>
