@@ -47,7 +47,32 @@
     <link rel="alternate" hreflang="zh" href="https://jacksmithpro.github.io/Puzzle/?lang=zh"/>
     <link rel="canonical" href="https://jacksmithpro.github.io/Puzzle/?lang=en"/>
 </head>
-
+<style>
+    /* Thiết lập cho body và html */
+    body, html {
+   
+        width:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000; /* Màu nền, có thể thay đổi */
+        overflow: hidden; /* Ẩn thanh cuộn */
+          -webkit-user-select: none; /* Safari */
+-ms-user-select: none; /* IE 10 and IE 11 */
+user-select: none; /* Standard syntax */
+    }
+    
+    /* Đảm bảo div chứa game (container) nằm giữa và toàn màn hình */
+    .page {
+        width: 100vw;  /* Chiều rộng toàn màn hình */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+  
+</style>
 <body>
 
 <audio id="click_sound" preload="auto">
