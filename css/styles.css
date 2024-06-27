@@ -1,0 +1,354 @@
+/* latin */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/robotto.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 100;
+    src: url(../fonts/material.woff2) format('woff2');
+}
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+body,
+.button-install {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+h1 {
+    text-align: center;
+    font-weight: 100;
+}
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+body:before {
+    content: '';
+    display: block;
+    position: absolute;
+    filter: blur(20px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+#play:target .playground {
+    cursor: auto;
+    border: 0;
+    pointer-events: none;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+}
+#play:target .button-play,
+#play:target .button-install,
+#play:target .button-rate,
+#play:target .content,
+#play:target .description,
+#play:target .added-on {
+    display: none;
+}
+
+#play:target .button-toggle-controls,
+#play:target .button-pause {
+    display: block;
+}
+#play:target virtual-joystick,
+#play:target .button {
+    visibility: visible;
+}
+.playground {
+    display: none;
+    margin: auto;
+    aspect-ratio: var(--w) / var(--h);
+}
+ruffle-player {
+    width: 100%;
+    height: 100%;
+}
+ruffle-player:before {
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: block;
+    position: fixed; 
+}
+.scale .playground {
+    transform: scale(var(--s));
+}
+#play.scale:target {
+    overflow: hidden;
+}
+#play.scale:target .playground {
+    max-width: calc(1px * var(--w));
+    width: calc(1px * var(--w));
+    height: calc(1px * var(--h));
+    max-height: calc(1px * var(--h));
+    transform-origin: var(--to);
+}
+.scale ruffle-player:before {
+    transform: scale(calc(var(--w) / (var(--w) * var(--s)))) translateX(calc(1px * (var(--vw) - var(--w) * var(--s)) / -2));
+    transform-origin: left top;
+}
+.button-install:before,
+.button-rate:before,
+.button-play:before {
+    font-family: 'Material Symbols Outlined';
+    content: "\e037";
+    font-size: 26px;
+    font-weight: bold;
+    color: black;
+    mix-blend-mode: difference;
+}
+.button-install:before {
+    content: "\f090";
+}
+@media (orientation: portrait) {
+    #play:target .playground {
+        top: 70px;
+        bottom: auto;
+    }
+}
+@media all and (display-mode: fullscreen) {
+    .button-install {
+        display: none
+    }
+}
+@media all and (display-mode: standalone) {
+    .button-install {
+        display: none
+    }
+}
+.menu-button,
+.button {
+    color: #303030;
+    border: 1px solid gray;
+	background-color: rgba(255, 255, 255, 0.3);
+    min-width: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+}
+.button {
+    position: absolute;
+    pointer-events: none;
+    visibility: hidden;
+    bottom: 40px;
+    right: 40px;
+}
+.button.focus {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.menu-button {
+    position: relative;
+    pointer-events: auto;
+    cursor: pointer;
+    display: none;
+    height: 50px;
+    margin: 10px 0;
+}
+.button-pause {
+    margin-left: 10px;
+}
+.menu-button:before {
+    font-family: "Material Symbols Outlined";
+    font-size: 24px;
+}
+.button-toggle-controls:before {
+    content: "\e5cd";
+}
+.button-pause.active:before {
+    content: "\e037";
+    font-size: 34px;
+}
+.button-mute:before {
+    content: "\e050";
+}
+.button-mute.active:before {
+    content: "\e04f";
+}
+.button-fullscreen:before {
+    content: "\e5d0";
+}
+.button-fullscreen.active:before {
+    content: "\e5d1";
+}
+.button-pause:after {
+    content: "";
+    border-inline: 1px solid #606060;
+    display: block;
+    height: 12px;
+    width: 10px;
+    top: 20px;
+    left: 18px;
+    position: absolute;
+}
+.button-pause.active:after {
+    content: "";
+    border: 0;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#play:target .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
+    display: block;
+}
+.tag-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.tag-list li {
+    padding-right: 20px;
+}
+.tag-list li:before {
+    content: "#";
+    color: #606060;
+}
+virtual-joystick {
+    visibility: hidden;
+    pointer-events: none;
+}
+video {
+    margin: 20px auto;
+    display: block;
+}
+main {
+    margin: auto;
+    padding: 20px;
+    max-width: 640px;
+    color: gray;
+}
+main :where(h1, p) {
+    mix-blend-mode: difference;
+}
+body:not(:target) main {
+    margin: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    max-height: calc(100vh - 40px);
+    position: absolute;
+    background-color: rgba(255, 255, 255, .3);
+    border-radius: 10px;
+    overflow-y: auto;
+    border: 1px solid #ffffff44;
+    border-right-color: #00000088;
+    border-bottom-color: #00000088;
+}
+.controls {
+    position: fixed;
+    pointer-events: none;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    gap: 10px;
+}
+.button-toggle-controls:before {
+    font-size: 30px;
+    content: "\e338";
+}
+.hide-gamepad:before {
+    content: "\e500";
+}
+.hide-gamepad ~ virtual-joystick,
+.hide-gamepad ~ .button {
+    display: none;
+}
+.description {
+    white-space: pre-line;
+}
+[data-mode] {
+    position: absolute;
+    left: 0;
+}
+[data-mode="fixed"] {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    left: 0;
+    bottom: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+[data-mode="dynamic"] {
+    width: 100%;
+    height: 100%;
+}
+.game-menu {
+    width: 220px;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    gap: 20px;
+}
+.button-install,
+.button-play,
+.button-rate {
+    text-decoration: none;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, .2);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 40px rgba(0, 0, 0, .1);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -2px -2px 5px rgba(255, 255, 255, 1), 3px 3px 5px rgba(0, 0, 0, .1);
+}
+.button-install,
+.button-rate {
+    width: 48px;
+    height: 48px;
+}
+.button-play:before {
+    font-weight: normal;
+    font-size: 58px;
+}
+.button-rate:before {
+    content: "\e87d";
+}

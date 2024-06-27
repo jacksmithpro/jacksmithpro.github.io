@@ -1,0 +1,20 @@
+{
+    "controls": [
+      
+        {
+            "type": "button",
+            "label": "l",
+            "mappings": [{ "key": "ArrowLeft", "code": "ArrowLeft", "which": 37 }]
+        },
+        {
+            "type": "button",
+            "label": "r",
+            "mappings": [{ "key": "ArrowRight", "code": "ArrowRight", "which": 39 }]
+        },
+        {
+            "type": "button",
+            "label": "SP",
+            "mappings": [{ "key": " ", "code": "Space", "which": 32 }]
+        }
+    ]
+}
