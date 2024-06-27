@@ -21,11 +21,10 @@ const exitFullscreen = () => {
     }
 };
 const handleHashChange = () => {
-    if (location.hash === '#play') {
+    if (location.hash === '#play' || location.hash === '') {
         $playground.prepend(player);
         player.load(gamePath);
-    }
-    else {
+    } else {
         player.remove();
         exitFullscreen();
     }
@@ -38,7 +37,7 @@ player.config = {
     unmuteOverlay: 'hidden'
 };
 addEventListener('hashchange', handleHashChange);
-handleHashChange();
+handleHashChange();  // Chạy khi tải trang
 fetch(gamePath);
 $buttonPause.addEventListener('click', () => {
     $buttonPause.classList.contains('active') ? player.play() : player.pause();
@@ -134,4 +133,4 @@ $buttonInstall.addEventListener('click', async () => {
     deferredPrompt = null;
     // Hide the install button.
     $buttonInstall.hidden = true;
-  });
+});
