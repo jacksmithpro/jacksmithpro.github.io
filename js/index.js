@@ -1,6 +1,6 @@
 const { pathname } = window.location;
 await navigator.serviceWorker.register('../../sw.js');
-const response = await fetch(`${pathname}game.json`);
+const response = await fetch(`../game/game.json`);
 const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 window.RufflePlayer = window.RufflePlayer || {};
 const $playground = document.querySelector('.playground');
@@ -13,17 +13,23 @@ const triggerKeydownEvent = event => window.dispatchEvent(new KeyboardEvent('key
 const triggerKeyupEvent = event => window.dispatchEvent(new KeyboardEvent('keyup', event));
 const ruffle = window.RufflePlayer.newest();
 const player = ruffle.createPlayer();
-const gamePath = `${pathname}/game.swf`;
+const gamePath = `../game/game.swf`;
 const exitFullscreen = () => {
     if (document.exitFullscreen && document.fullscreenElement) {
         document.exitFullscreen();
         $buttonFullscreen?.classList.remove('active');
     }
 };
-
+const handleHashChange = () => {
+    if (location.hash === '#play') {
         $playground.prepend(player);
         player.load(gamePath);
-
+    }
+    else {
+        player.remove();
+        exitFullscreen();
+    }
+};
 let deferredPrompt;
 player.config = {
     autoplay: 'on',
