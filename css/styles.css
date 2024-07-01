@@ -54,7 +54,7 @@ body:before {
     width: 100%;
     height: 100%;
 }
-#play:target .playground {
+#play .playground {
     cursor: auto;
     border: 0;
     pointer-events: none;
@@ -69,31 +69,32 @@ body:before {
     width: auto;
     border-radius: 0;
 }
-#play:target .button-play,
-#play:target .button-install,
-#play:target .button-rate,
-#play:target .content,
-#play:target .description,
-#play:target .added-on {
+#play .button-play,
+#play .button-install,
+#play .button-rate,
+#play .content,
+#play .description,
+#play .added-on {
     display: none;
 }
 
-#play:target .button-toggle-controls,
-#play:target .button-pause {
+
+#play .button-toggle-controls,
+#play .button-pause {
     display: block;
 }
-#play:target virtual-joystick,
-#play:target .button {
+#play virtual-joystick,
+#play .button {
     visibility: visible;
 }
 .playground {
-    display: none;
-    margin: auto;
-    aspect-ratio: var(--w) / var(--h);
+    margin: 0;
+    width:100vw;
+    height: 100vh;
 }
 ruffle-player {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 ruffle-player:before {
     content: "";
@@ -135,7 +136,7 @@ ruffle-player:before {
     content: "\f090";
 }
 @media (orientation: portrait) {
-    #play:target .playground {
+     .playground {
         top: 70px;
         bottom: auto;
     }
