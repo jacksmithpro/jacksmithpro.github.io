@@ -93,8 +93,8 @@ body:before {
     height: 100vh;
 }
 ruffle-player {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 ruffle-player:before {
     content: "";
@@ -108,10 +108,10 @@ ruffle-player:before {
 .scale .playground {
     transform: scale(var(--s));
 }
-#play.scale:target {
+#play.scale {
     overflow: hidden;
 }
-#play.scale:target .playground {
+#play.scale .playground {
     max-width: calc(1px * var(--w));
     width: calc(1px * var(--w));
     height: calc(1px * var(--h));
@@ -225,7 +225,7 @@ ruffle-player:before {
     width: 100%;
     height: 100%;
 }
-#play:target .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
+#play .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
     display: block;
 }
 .tag-list {
@@ -263,7 +263,6 @@ body:not(:target) main {
     box-sizing: border-box;
     overflow: hidden;
     max-height: calc(100vh - 40px);
-    position: absolute;
     background-color: rgba(255, 255, 255, .3);
     border-radius: 10px;
     overflow-y: auto;

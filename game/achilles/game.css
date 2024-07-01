@@ -1,6 +1,10 @@
 .button-y {
     bottom: 120px;
+    scale:1.2;
 }
+.button-t{
+scale:1.2}
 .button-sp {
     right: 120px;
+    scale:1.2;
 }
