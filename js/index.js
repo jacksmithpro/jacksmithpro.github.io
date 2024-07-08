@@ -1,6 +1,6 @@
 const { pathname } = window.location;
-await navigator.serviceWorker.register('../../sw.js');
-const response = await fetch(`./game.json`);
+await navigator.serviceWorker.register('../sw.js');
+const response = await fetch(`../game.json`);
 const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 window.RufflePlayer = window.RufflePlayer || {};
 const $playground = document.querySelector('.playground');
@@ -13,7 +13,7 @@ const triggerKeydownEvent = event => window.dispatchEvent(new KeyboardEvent('key
 const triggerKeyupEvent = event => window.dispatchEvent(new KeyboardEvent('keyup', event));
 const ruffle = window.RufflePlayer.newest();
 const player = ruffle.createPlayer();
-const gamePath = `https://jacksmithpro.github.io/game/achilles/game.swf`;
+const gamePath = `../game.swf`;
 const exitFullscreen = () => {
     if (document.exitFullscreen && document.fullscreenElement) {
         document.exitFullscreen();
@@ -21,9 +21,10 @@ const exitFullscreen = () => {
     }
 };
 const handleHashChange = () => {
+
         $playground.prepend(player);
         player.load(gamePath);
-
+ 
 };
 let deferredPrompt;
 player.config = {
@@ -99,7 +100,7 @@ if (controls?.length) {
             $joystick.addEventListener('joystickup', handleKeyEvents);
         }
         if ('button' === type) {
-            const Button = await import('../../js/button.js');
+            const Button = await import('./button.js');
             Button.default(control, $controls);
         }
     });
