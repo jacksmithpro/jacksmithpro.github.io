@@ -21,7 +21,6 @@ const exitFullscreen = () => {
     }
 };
 const handleHashChange = () => {
-
         $playground.prepend(player);
         player.load(gamePath);
  
