@@ -80,7 +80,7 @@ body:before {
 
 #play .button-toggle-controls,
 #play .button-pause {
-   
+    display: block;
 }
 #play virtual-joystick,
 #play .button {
