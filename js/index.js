@@ -20,11 +20,11 @@ const exitFullscreen = () => {
         $buttonFullscreen?.classList.remove('active');
     }
 };
-const handleHashChange = () => {
-        $playground.prepend(player);
-        player.load(gamePath);
+
+$playground.prepend(player);
+player.load(gamePath);
  
-};
+
 let deferredPrompt;
 player.config = {
     autoplay: 'on',
