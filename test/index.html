@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run SWF with Ruffle</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+    <div id="flash-container">
+        <object id="flash-object" type="application/x-shockwave-flash" data="game.swf" width="800" height="600">
+            <param name="movie" value="game.swf">
+            <param name="quality" value="high">
+            <param name="bgcolor" value="#ffffff">
+            <param name="allowScriptAccess" value="always">
+            <param name="allowFullScreen" value="true">
+            <!-- Add more parameters as needed -->
+        </object>
+    </div>
+
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const flashObject = document.getElementById("flash-object");
+            ruffle.createPlayer(flashObject);
+        });
+    </script>
+</body>
+</html>
