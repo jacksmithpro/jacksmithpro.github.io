@@ -1,4 +1,6 @@
 // Lọc ra các phần tử và mã lệnh liên quan đến joystick
+const $controls = document.querySelector('.controls');
+
 const joystickControls = controls.filter(control => control.type === 'joystick');
 
 // Xử lý từng control joystick
