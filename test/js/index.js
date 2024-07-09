@@ -1,5 +1,13 @@
-// Lọc ra các phần tử và mã lệnh liên quan đến joystick
+const response = await fetch(`../game.json`);
+const { controls, scale } = response.status === 200 ? await response.json?.() : {};
+const $buttonInstall = document.querySelector('.button-install');
+const $buttonPause = document.querySelector('.button-pause');
+const $buttonMute = document.querySelector('.button-mute');
+const $buttonFullscreen = document.querySelector('.button-fullscreen');
 const $controls = document.querySelector('.controls');
+const triggerKeydownEvent = event => window.dispatchEvent(new KeyboardEvent('keydown', event));
+const triggerKeyupEvent = event => window.dispatchEvent(new KeyboardEvent('keyup', event));
+// Lọc ra các phần tử và mã lệnh liên quan đến joystick
 
 const joystickControls = controls.filter(control => control.type === 'joystick');
 
