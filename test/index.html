@@ -2,186 +2,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Achilles</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Achilles">
-    <meta name="apple-mobile-web-app-title" content="Achilles">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/jpg" sizes="144x144" href="./icon.png">
-    <link rel="apple-touch-icon" type="image/jpg" sizes="144x144" href="./icon.png">
-    <link rel="stylesheet" href="./css/styles.css?v=1.0">
-    <link rel="stylesheet" href="./game.css?v=1.0">
-    <style>
-        #play:before {
-            background-image: url(./poster.jpg)
-        }
-    </style>
-</head>
-<body id="play">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run SWF with Ruffle</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+    <div id="flash-container">
+        <object id="flash-object" type="application/x-shockwave-flash" data="game.swf" width="800" height="600">
+            <param name="movie" value="game.swf">
+            <param name="quality" value="high">
+            <param name="bgcolor" value="#ffffff">
+            <param name="allowScriptAccess" value="always">
+            <param name="allowFullScreen" value="true">
+            <!-- Add more parameters as needed -->
+        </object>
+    </div>
 
-    <main>
-        <div class="content">
-            <h1></h1>
-            <video disableremoteplayback loop muted autoplay poster="./poster.jpg"><source src="./video.mp4" type="video/mp4"></video>
-        </div>
-        <div class="playground" id="flash-object" style="--w: 700; --h: 500;"></div>
-        <div class="game-menu">
-            <button class="button-install" type="button" title="Install" hidden></button>
-            <a class="button-play" href="#play" title="Play"></a>
-            <a class="button-rate" target="_blank" href="https://play.google.com/store/apps/details?id=io.dondido.flashgameemulator" title="Rate"  rel="external"></a>
-        </div>
-        <div class="controls">
-            <button type="button" class="menu-button button-pause"></button>
-            <button type="button" class="menu-button button-fullscreen"></button>
-            <button type="button" class="menu-button button-mute"></button>
-        </div>
-        <p class="description"></p>
-        <p class="added-on"></p>
-    </main>
-    <script type="module" src="./js/virtual-joystick.js"></script>
-    <script src="./js/player.js"></script>
     <script>
         window.RufflePlayer = window.RufflePlayer || {};
-        window.addEventListener("load", async (event) => {
-            // Đăng ký service worker
-            await navigator.serviceWorker.register('./sw.js');
-
-            // Lấy thông tin từ file game.json
-            const response = await fetch(`./game.json`);
-            const { controls, scale } = response.status === 200 ? await response.json() : {};
-
+        window.addEventListener("load", (event) => {
             const ruffle = window.RufflePlayer.newest();
             const flashObject = document.getElementById("flash-object");
-            const player = ruffle.createPlayer();
-            flashObject.parentNode.insertBefore(player, flashObject);
-            flashObject.remove();
-            player.load('./game.swf');
-
-            // Cấu hình Ruffle player
-            player.config = {
-                autoplay: 'on',
-                contextMenu: 'rightClickOnly',
-                warnOnUnsupportedContent: false,
-                unmuteOverlay: 'hidden'
-            };
-
-            // Xử lý khi thay đổi hash
-            const handleHashChange = () => {
-                player.load('../game.swf');
-            };
-            addEventListener('hashchange', handleHashChange);
-            handleHashChange();
-
-            // Cài đặt nút điều khiển
-            const $buttonPause = document.querySelector('.button-pause');
-            const $buttonMute = document.querySelector('.button-mute');
-            const $buttonFullscreen = document.querySelector('.button-fullscreen');
-            const $controls = document.querySelector('.controls');
-
-            $buttonPause.addEventListener('click', () => {
-                $buttonPause.classList.contains('active') ? player.play() : player.pause();
-                $buttonPause.classList.toggle('active');
-            });
-
-            $buttonMute.addEventListener('click', () => {
-                player.volume = +$buttonMute.classList.contains('active');
-                $buttonMute.classList.toggle('active');
-            });
-
-            const exitFullscreen = () => {
-                if (document.exitFullscreen && document.fullscreenElement) {
-                    document.exitFullscreen();
-                    $buttonFullscreen?.classList.remove('active');
-                }
-            };
-
-            if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
-                $buttonFullscreen.remove();
-            } else {
-                $buttonFullscreen.addEventListener('click', () => {
-                    if (!document.fullscreenElement) {
-                        document.documentElement.requestFullscreen();
-                        $buttonFullscreen.classList.add('active');
-                    } else {
-                        exitFullscreen();
-                    }
-                });
-            }
-
-            if (scale) {
-                const $playground = document.querySelector('.playground');
-                const { style } = $playground;
-                const w = style.getPropertyValue('--w');
-                const h = style.getPropertyValue('--h');
-                const ratio = w / h;
-                const setScale = () => {
-                    const { innerWidth, innerHeight } = window;
-                    const scale = ratio > innerWidth / innerHeight ? innerWidth / w : innerHeight / h;
-                    style.setProperty('--vw', innerWidth);
-                    style.setProperty('--vh', innerHeight);
-                    style.setProperty('--s', scale);
-                    style.setProperty('--to', innerWidth > w ? 'center' : 'left top');
-                };
-                window.addEventListener('resize', setScale);
-                document.body.classList.add('scale');
-                setScale();
-            }
-
-            if (controls?.length) {
-                $buttonPause.insertAdjacentHTML('afterend', '<button type="button" class="menu-button button-toggle-controls"></button>');
-                document.querySelector('.button-toggle-controls').onclick = ({ currentTarget }) => {
-                    currentTarget.classList.toggle('hide-gamepad');
-                };
-                controls.forEach(async (control) => {
-                    const { type } = control;
-                    if ('joystick' === type) {
-                        const { mappings, dataset = { mode: 'fixed' } } = control;
-                        const assignMapping = (direction) => {
-                            const code = mappings[direction];
-                            return typeof code === 'string' ? { code } : code;
-                        };
-                        const mapKeydown = direction => triggerKeydownEvent(assignMapping(direction));
-                        const mapKeyup = direction => triggerKeyupEvent(assignMapping(direction));
-                        const data = Object.entries(dataset).map(([key, value]) => `data-${key}=${value}`).join(' ');
-                        $controls.insertAdjacentHTML('beforeend', `<virtual-joystick ${data}></virtual-joystick>`);
-                        const $joystick = $controls.querySelector('virtual-joystick');
-                        const handleKeyEvents = () => {
-                            $joystick.dataset.release.split('').forEach(mapKeyup);
-                            $joystick.dataset.capture.split('').forEach(mapKeydown);
-                        };
-                        $joystick.addEventListener('joystickdown', handleKeyEvents);
-                        $joystick.addEventListener('joystickmove', handleKeyEvents);
-                        $joystick.addEventListener('joystickup', handleKeyEvents);
-                    }
-                    if ('button' === type) {
-                        const Button = await import('./js/button.js');
-                        Button.default(control, $controls);
-                    }
-                });
-            }
-
-            let deferredPrompt;
-            window.addEventListener('beforeinstallprompt', (event) => {
-                event.preventDefault();
-                console.log('👍', 'beforeinstallprompt', event);
-                deferredPrompt = event;
-                const $buttonInstall = document.querySelector('.button-install');
-                $buttonInstall.hidden = false;
-                $buttonInstall.addEventListener('click', async () => {
-                    console.log('👍', 'butInstall-clicked');
-                    const promptEvent = deferredPrompt;
-                    if (!promptEvent) return;
-                    promptEvent.prompt();
-                    const result = await promptEvent.userChoice;
-                    console.log('👍', 'userChoice', result);
-                    deferredPrompt = null;
-                    $buttonInstall.hidden = true;
-                });
-            });
+            ruffle.createPlayer(flashObject);
         });
     </script>
 </body>
