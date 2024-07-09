@@ -1,4 +1,4 @@
-const response = await fetch(`../game.json`);
+const response = await fetch(`./game.json`);
 const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 const $buttonInstall = document.querySelector('.button-install');
 const $buttonPause = document.querySelector('.button-pause');
