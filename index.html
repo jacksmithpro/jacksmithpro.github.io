@@ -63,14 +63,14 @@
 
 <main class="page" id="title">
     <fieldset class="content">
-        <header>
+        <header >
             <img id="img_title" src="Images/title1.png" alt="grrd's Puzzle"/>
             <div class="fr">
                 <div class="mini-buttonlist" >
                     <button id="iInfo" class="mini-button" style="display:none" >
                         <img class="mini-img shadow" src="Images/info.svg" alt="Info">
                     </button>
-                    <button id="iSettings" class="mini-button">
+                    <button id="iSettings" style="border-radius:20%" class="mini-button">
                         <img class="mini-img shadow" src="Images/settings.svg" alt="Settings">
                     </button>
                     <button id="iFullscreen" class="mini-button" style="display:none">
@@ -171,13 +171,13 @@
 
         <nav class="cb">
             <button id="bt_easy" class="list-button list-button-33" data-num="1">
-                <img id="img_easy" class="button-img bt_diff shadow" src="Images/easy.svg" alt="Easy">
+                <img id="img_easy" class="button-img bt_diff shadow" src="Images/easy.png" alt="Easy">
             </button>
             <button id="bt_med" class="list-button list-button-33" data-num="2">
-                <img id="img_med" class="button-img bt_diff shadow" src="Images/medium.svg" alt="Medium">
+                <img id="img_med" class="button-img bt_diff shadow" src="Images/normal.png" alt="Medium">
             </button>
             <button id="bt_hard" class="list-button list-button-33" data-num="3">
-                <img id="img_hard" class="button-img bt_diff shadow" src="Images/hard.svg" alt="Hard">
+                <img id="img_hard" class="button-img bt_diff shadow" src="Images/hard.png" alt="Hard">
             </button>
         </nav>
     </fieldset>
@@ -339,7 +339,7 @@
                         <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="b_rotate"></label>
                     </div>
                 </div>
-                <div class="popup-content">
+                <div class="popup-content" style="display:none">
                     <span data-l10n-id="lb_b_image">Image in background</span>
                     <div class="fr">
                         <input class="tgl tgl-skewed" id="b_back_g_image" type="checkbox"/>
@@ -360,7 +360,7 @@
                         <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="b_gold"></label>
                     </div>
                 </div>
-                <div class="popup-content" id="b_gold_disabled">
+                <div style="display:none" class="popup-content" id="b_gold_disabled">
                     <img class="txticon locked" src="Images/lock.svg" alt=""/><span data-l10n-id="lb_gold" class="locked">Gold Mode</span>
                     <div class="fr">
                         <input class="tgl tgl-skewed" id="b_gold2" type="checkbox" disabled/>

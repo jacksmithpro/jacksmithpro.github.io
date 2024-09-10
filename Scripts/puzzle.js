@@ -990,9 +990,9 @@
             $("img_hard").src = "Images/hard_gold.svg";
         } else {
             g_gold = false;
-            $("img_easy").src = "Images/easy.svg";
-            $("img_med").src = "Images/medium.svg";
-            $("img_hard").src = "Images/hard.svg";
+            $("img_easy").src = "Images/easy.png";
+            $("img_med").src = "Images/normal.png";
+            $("img_hard").src = "Images/hard.png";
         }
     }
 
