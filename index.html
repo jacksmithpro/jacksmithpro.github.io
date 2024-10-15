@@ -87,8 +87,8 @@
             background-repeat: no-repeat;
         }
 
-        /* CSS để xoay splash__image khi ở chế độ portrait (dọc) */
-        .rotate-splash {
+        /* CSS để xoay canvas khi ở chế độ portrait (dọc) */
+        .rotate-game {
             transform: rotate(90deg);
             transform-origin: center;
             width: 100vh; /* Đảo ngược chiều rộng và chiều cao khi xoay */
@@ -96,7 +96,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            margin: -50vw 0 0 -50vh; /* Giữ splash__image ở giữa sau khi xoay */
+            margin: -50vw 0 0 -50vh; /* Giữ canvas ở giữa sau khi xoay */
         }
     </style>
 </head>
@@ -116,13 +116,13 @@
 
     <script>
         function checkOrientation() {
-            const splashImage = document.getElementById("splash__image");
+            const gameCanvas = document.getElementById("gameCanvas");
             if (window.innerWidth < window.innerHeight) {
-                // Xoay splash__image nếu màn hình ở chế độ portrait
-                splashImage.classList.add("rotate-splash");
+                // Xoay canvas nếu màn hình ở chế độ portrait
+                gameCanvas.classList.add("rotate-game");
             } else {
                 // Bỏ xoay nếu màn hình ở chế độ landscape
-                splashImage.classList.remove("rotate-splash");
+                gameCanvas.classList.remove("rotate-game");
             }
         }
 
