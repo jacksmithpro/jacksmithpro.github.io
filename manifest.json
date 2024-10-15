@@ -2,7 +2,7 @@
     "name": "JackSmith - The Ultimate Weapon Crafting Game",
     "short_name": "JackSmith",
     "start_url": "/index.html",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#000000",
     "theme_color": "#382C2A",
     "description": "Join JackSmith in crafting weapons for warriors to defeat enemies. Play the ultimate weapon crafting game online for free!",
