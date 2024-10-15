@@ -1,518 +1,114 @@
-<!DOCTYPE html>
-<html lang="zxx">
+<!doctype html>
+<html>
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Oya - Agency Landing Page Template</title>
-		<link rel="icon" href="images/favicon.png">
-		
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/fontawesome.min.css">
-		<link rel="stylesheet" href="css/LineIcons.css">
-		<link rel="stylesheet" href="css/fakeLoader.min.css">
-		<link rel="stylesheet" href="css/magnific-popup.css">
-		<link rel="stylesheet" href="css/style.css">
+		<meta charset="utf-8">
+		<title>98.js - Windows 98 Online</title>
+		<link href="layout.css" rel="stylesheet" type="text/css">
+		<link href="lib/os-gui/layout.css" rel="stylesheet" type="text/css">
+		<link href="lib/os-gui/windows-98.css" rel="stylesheet" type="text/css">
+		<link href="lib/clippy.js/build/clippy.css" rel="stylesheet" type="text/css">
+		<link href="classic.css" rel="stylesheet" type="text/css">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=LbWArJzeO7">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=LbWArJzeO7">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=LbWArJzeO7">
+		<link rel="manifest" href="/site.webmanifest?v=LbWArJzeO7">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg?v=LbWArJzeO7" color="#5bbad5">
+		<link rel="shortcut icon" href="/favicon.ico?v=LbWArJzeO7">
+		<meta name="apple-mobile-web-app-title" content="98.js">
+		<meta name="application-name" content="98.js">
+		<meta name="msapplication-TileColor" content="#2b5797">
+		<meta name="theme-color" content="#008080">
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<!-- For WayBack Machine, hopefully get it to save these resources -->
+		<link rel="prefetch" href="/filesystem-index.json">
+		<link rel="prefetch" href="/desktop/CREDITS.txt">
+		<link rel="prefetch" href="/programs/notepad/index.html">
 	</head>
 	<body>
-
-		<!-- loader -->
-		<div class="fakeLoader"></div>
-		<!-- end loader -->
-		
-		<!-- navbar -->
-		<nav class="navbar navbar-expand-md fixed-top">
-			<div class="container">
-				<a href="index.html" class="navbar-brand"><img src="images/logo.png" alt=""></a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<i class="fa fa-bars"></i>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="#home">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#about">About</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#services">Services</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="privacy.html">Privacy</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#pricing">Pricing</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#contact">Contact us</a>
-						</li>
-					</ul>
+		<div class="desktop" style="background-image: url(images/clouds.jpg); background-size: cover; background-position: center;"></div>
+		<div class="taskbar" style="z-index: 5000;">
+			<button class="start-button toggle" title="Click here to begin.">
+				<img src="images/start.png"/><b>Start</b>
+			</button>
+			<div class="taskbar-divider"></div>
+			<!-- TODO: pinned apps and resizing handles -->
+			<div class="tasks"></div>
+			<div class="taskbar-divider"></div>
+			<div class="tray inset-shallow">
+				<div class="tray-icons">
+					<img class="tray-icon" src="images/icons/task-scheduler-16x16.png" title="Task Scheduler is not ready." onclick="showMessageBox({iconID: 'info', message: 'Good day to you!'})">
+					<img class="tray-icon" src="images/icons/audio-okay-16x16.png" title="Volume" onclick="showMessageBox({iconID: 'info', message: 'Have a wonderful day!'})">
 				</div>
-			</div>
-		</nav>
-		<!-- end navbar -->
-		
-		<!-- home intro -->
-		<div class="home-intro" id="home">
-			<div class="container">
-				<div class="row">
-					<div class="col col-sm-12 col-md-6 col-12">
-						<div class="content">
-							<h5><span class="line"></span>WELCOME TO KMIHOG</h5>
-							<h2>KMIHOG</h2>
-							<h2>STUDIO</h2>
-							<ul>
-								<li><a href="" class="button">Get Started</a></li>
-								<li><a href="" class="button2">Get Started</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col col-sm-12 col-md-6 col-12">
-						<div class="content-image">
-							<img src="images/intro.png" alt="">
-						</div>
-					</div>
-				</div>
+				<div class="taskbar-time" ondblclick="showMessageBox({iconID: 'info', message: 'Time to get an old clock!'})"></div>
 			</div>
 		</div>
-		<!-- end end intro -->
-
-		<!-- about -->
-		<div class="about section bg-grey" id="about">
-			<div class="container">
-				<div class="title-section">
-					<p>ABOUT US</p>
-					<h3>Our goal is to</h3>
-					<h3>make your life easier</h3>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-bulb"></i>
-							<h5>Create Idea</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-sun"></i>
-							<h5>Smart Solutions</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-comments"></i>
-							<h5>Free Support</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-				</div>
+		<div class="start-menu outset-deep" hidden style="display: none; z-index: 5001;">
+			<div class="start-menu-titlebar"></div>
+			<div class="start-menu-content">
+				<h1 style="font-family: cursive; font-size: 2em;">’S tart</h1>
+				<h2 style="font-family: cursive; font-size: 1em; color: gray; margin: 0; margin-left: 300px; white-space: nowrap;">’s a strawberry tart</h1>
+				<img src="https://i.postimg.cc/dtxsJq0d/CK1IhDr.gif"/>
 			</div>
 		</div>
-		<!-- end about -->
-		
-		<!-- portfolio -->
-		<div class="portfolio section" id="portfolio">
-			<div class="container">
-				<div class="title-section">
-					<p>PORTFOLIO</p>
-					<h3>See our <span>amazing</span></h3>
-					<h3><span>portfolio</span> collection</h3>
-				</div>
-				<div class="box-content">
-					<div class="portfolio-filter-menu">
-						<ul>
-							<li data-filter="all" class="active">
-								<span>Show All</span>
-							</li>
-							<li data-filter="1">
-								<span>Graphic</span>
-							</li>
-							<li data-filter="2">
-								<span>Landing</span>
-							</li>
-							<li data-filter="3">
-								<span>Art Design</span>
-							</li>
-						</ul>
-					</div>
-					<div class="row no-gutters filtr-container">
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="3">
-							<div class="content-image">
-								<a href="images/portfolio1.jpg" class="portfolio-popup">
-									<img src="images/portfolio1.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="1">
-							<div class="content-image">
-								<a href="images/portfolio2.jpg" class="portfolio-popup">
-									<img src="images/portfolio2.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="2, 1">
-							<div class="content-image">
-								<a href="images/portfolio3.jpg" class="portfolio-popup">
-									<img src="images/portfolio3.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="3">
-							<div class="content-image">
-								<a href="images/portfolio4.jpg" class="portfolio-popup">
-									<img src="images/portfolio4.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="1, 2">
-							<div class="content-image">
-								<a href="images/portfolio5.jpg" class="portfolio-popup">
-									<img src="images/portfolio5.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6 col-xs-12 filtr-item" data-category="3, 1">
-							<div class="content-image">
-								<a href="images/portfolio6.jpg" class="portfolio-popup">
-									<img src="images/portfolio6.jpg" alt="">
-									<div class="image-overlay"></div>
-									<div class="portfolio-caption">
-										<div class="title">
-											<h4>Modern Design</h4>
-											<span>Graphic Design</span>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end portfolio -->
-		
-		<!-- services -->
-		<div class="services section bg-grey" id="services">
-			<div class="container">
-				<div class="title-section">
-					<p>SERVICES</p>
-					<h3>Choose what</h3>
-					<h3>you like our services</h3>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-wordpress-filled"></i>
-							<h5>WordPress</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-vector"></i>
-							<h5>Logo Design</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-keyword-research"></i>
-							<h5>Online Seo</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-mobile"></i>
-							<h5>Mobile Apps</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-list"></i>
-							<h5>Copywriting</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<i class="lni lni-bulb"></i>
-							<h5>Brand Strategy</h5>
-							<p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit Ea laudantium empore nobis quisquam.</p>
-						</div>
-					</div>
-				</div>
-				<div class="completed">
-					<div class="row">
-						<div class="col-md-4">
-							<h4>540</h4>
-							<span>Clients</span>
-						</div>
-						<div class="col-md-4">
-							<h4>831</h4>
-							<span>Project</span>
-						</div>
-						<div class="col-md-4">
-							<h4>65</h4>
-							<span>Branch</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end services -->
+		<script src="lib/jquery.min.js"></script>
+		<script src="lib/browserfs.js"></script>
+		<script src="lib/clippy.js/build/clippy.js"></script>
+		<script src="lib/konami.js"></script>
+		<script src="lib/os-gui/parse-theme.js"></script>
+		<script src="lib/os-gui/MenuBar.js"></script>
+		<script src="lib/os-gui/$Window.js"></script>
+		<script src="src/msgbox.js"></script>
+		<script>defaultMessageBoxTitle = "Windows";</script>
+		<script src="src/3d-fun.js"></script>
+		<script src="src/helpers.js"></script>
+		<script src="src/filesystem-setup.js"></script>
+		<script src="src/iframe-windows.js"></script>
+		<script src="src/Task.js"></script>
+		<script src="src/$taskbar-time.js"></script>
+		<script src="src/$start-menu.js"></script>
+		<script src="src/FolderView.js"></script>
+		<script src="src/FolderViewItem.js"></script>
+		<script src="src/$desktop.js"></script>
+		<script src="src/window-switcher.js"></script>
+		<script src="src/visualizer-overlay.js"></script>
+		<script src="src/programs.js"></script>
 
-		<!-- pricing -->
-		<div class="pricing section" id="pricing">
-			<div class="container">
-				<div class="title-section">
-					<p>PRICING TABLE</p>
-					<h3>Your plance, your choise</h3>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="content">
-							<h4>Basic</h4>
-							<span>$15</span>
-							<ul>
-								<li>Responsive</li>
-								<li>Documentation</li>
-								<li class="not-active">Support</li>
-								<li class="not-active">Multimedia</li>
-								<li class="not-active">Creative</li>
-								<li class="not-active">Modern</li>
-								<li class="not-active">Free Update</li>
-							</ul>
-						</div>
-						<button class="button">Get Started</button>
-					</div>
-					<div class="col-md-4">
-						<div class="content content-center">
-							<h4>Standart</h4>
-							<span>$30</span>
-							<ul>
-								<li>Responsive</li>
-								<li>Documentation</li>
-								<li>Support</li>
-								<li>Multimedia</li>
-								<li class="not-active">Creative</li>
-								<li class="not-active">Modern</li>
-								<li class="not-active">Free Update</li>
-							</ul>
-						</div>
-						<button class="button">Get Started</button>
-					</div>
-					<div class="col-md-4">
-						<div class="content">
-							<h4>Premium</h4>
-							<span>$50</span>
-							<ul>
-								<li>Responsive</li>
-								<li>Documentation</li>
-								<li>Support</li>
-								<li>Multimedia</li>
-								<li>Creative</li>
-								<li>Modern</li>
-								<li>Free Update</li>
-							</ul>
-						</div>
-						<button class="button">Get Started</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end pricing -->
-
-
-		<!-- testimonial -->
-		<div class="testimonial section bg-grey" id="testimonial">
-			<div class="container">
-				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<span><i class="lni lni-quotation"></i></span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur molestiae totam corporis asperiores, id rerum quod officia, dolor ducimus earum doloremque ipsa vel, debitis dolorem, laudantium! In veritatis a, atque!</p>
-							<h5>Jamal Ali</h5>
-							<span>themeforest.net</span>
-						</div>
-						<div class="carousel-item">
-							<span><i class="lni lni-quotation"></i></span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur molestiae totam corporis asperiores, id rerum quod officia, dolor ducimus earum doloremque ipsa vel, debitis dolorem, laudantium! In veritatis a, atque!</p>
-							<h5>Nabil Dirar</h5>
-							<span>envato.com</span>
-						</div>
-						<div class="carousel-item">
-							<span><i class="lni lni-quotation"></i></span>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur molestiae totam corporis asperiores, id rerum quod officia, dolor ducimus earum doloremque ipsa vel, debitis dolorem, laudantium! In veritatis a, atque!</p>
-							<h5>Moussa Silla</h5>
-							<span>codecanyon.com</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- end testimonial -->
-
-		<!-- contact -->
-	    <div id="contact" class="contact section">
-	        <div class="container">
-	            <div class="box-content">
-	                <div class="row">
-	                    <div class="col-md-4 col-sm-12">
-	                       	<div class="content">
-	                       		<h5>Address</h5>
-	                       		<p>470 Trần Đại Nghĩa, Ngũ Hành Sơn, Đà Năng, 55000</p>
-	                       		<h5>Phone</h5>
-	                       		<p>+84 54 01 076</p>
-	                       		<h5>Email</h5>
-	                       		<p>viethuy004@gmail.com</p>
-	                       	</div>
-	                    </div>
-	                    <div class="col-md-8 col-sm-12">
-	                        <div class="content-right">
-	                            <form action="contact-form.php" class="contact-form" id="contact-form" method="post">
-	                                <div class="row">
-	                                    <div class="col">
-	                                        <div id="first-name-field">
-	                                            <input type="text" placeholder="Name" name="form-name">
-	                                        </div>
-	                                    </div>
-	                                    <div class="col">
-	                                         <div id="email-field">
-	                                            <input type="email" placeholder="Email Address" name="form-email">
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <div class="row">
-	                                    <div class="col">
-	                                        <div id="subject-field">
-	                                            <input type="text" placeholder="Subject" name="form-subject">
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <div class="row">
-	                                    <div class="col">
-	                                        <div id="message-field">
-	                                            <textarea cols="30" rows="5" id="form-message" name="form-message" placeholder="Message"></textarea>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                                <button class="button" type="submit" id="submit" name="submit">Send Message</button>
-	                            </form>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <!-- end contact -->
-
-		<!-- footer -->
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-6">
-						<div class="content">
-							<div class="brand"><img src="images/logo2.png" alt=""></div>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit Aliquam nam</p>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-						<div class="content">
-							<h5>About</h5>
-							<ul>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> About us</a></li>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> Contact</a></li>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> Portfolio</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-						<div class="content">
-							<h5>Support</h5>
-							<ul>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> support@example.com</a></li>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> +61 3 8376 6284
-</a></li>
-								<li><a href=""><i class="fa fa-angle-double-right"></i> Services</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-						<div class="content">
-							<h5>Follow us</h5>
-							<ul class="social">
-								<li><a href=""><i class="fab fa-facebook-f"></i> Facebook</a></li>
-								<li><a href=""><i class="fab fa-twitter"></i> Twitter
-</a></li>
-								<li><a href=""><i class="fab fa-instagram"></i> Instagram</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- end footer -->
-
-		<!-- footer bottom -->
-		<div class="footer-bottom">
-			<span>Copyright © All Right Reserved</span>
-		</div>
-		<!-- end footer bottom -->
-		
-		<!-- script -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/fakeLoader.min.js"></script>
-		<script src="js/jquery.filterizr.min.js"></script>
-		<script src="js/imagesloaded.pkgd.min.js"></script>
-		<script src="js/magnific-popup.min.js"></script>
-		<script src="js/contact-form.js"></script>
-		<script src="js/main.js"></script>
-
+		<!-- TODO: DRY -->
+		<svg style="position: absolute; pointer-events: none; bottom: 100%;">
+			<defs>
+				<filter id="disabled-inset-filter" x="0" y="0" width="1px" height="1px">
+					<feColorMatrix
+						in="SourceGraphic"
+						type="matrix"
+						values="
+							1 0 0 0 0
+							0 1 0 0 0
+							0 0 1 0 0
+							-1000 -1000 -1000 1 0
+						"
+						result="black-parts-isolated"
+					/>
+					<feFlood result="shadow-color" flood-color="var(--ButtonShadow)"/>
+					<feFlood result="hilight-color" flood-color="var(--ButtonHilight)"/>
+					<feOffset in="black-parts-isolated" dx="1" dy="1" result="offset"/>
+					<feComposite in="hilight-color" in2="offset" operator="in" result="hilight-colored-offset"/>
+					<feComposite in="shadow-color" in2="black-parts-isolated" operator="in" result="shadow-colored"/>
+					<feMerge>
+						<feMergeNode in="hilight-colored-offset"/>
+						<feMergeNode in="shadow-colored"/>
+					</feMerge>
+				</filter>
+			</defs>
+		</svg>
+		<script>
+			// This doesn't seem to be a problem in the Help viewer,
+			// but better safe than sorry.
+			window.addEventListener("resize", ()=> {
+				// work around a browser bug in Chrome where
+				// the SVG filter behaves differently based on the INITIAL zoom level
+				// (if you zoom in, the icons get cut off, if you zoom out, the effect is too thick)
+				document.getElementById("disabled-inset-filter").setAttribute("x", "0");
+			});
+		</script>
 	</body>
 </html>
