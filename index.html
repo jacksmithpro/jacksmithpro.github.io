@@ -27,27 +27,25 @@
 	<style>
 		*{
 			cursor: default;
-	user-select: none;
-	-o-user-select: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
+			user-select: none;
+			-o-user-select: none;
+			-ms-user-select: none;
+			-moz-user-select: none;
+			-webkit-user-select: none;
 		}
-	body{
-		background-color: black;
-	}
+		body{
+			background-color: black;
+		}
 		* {
 			margin: 0;
 			padding: 0;
 		}
 
 		canvas {
-			outline: none
+			outline: none;
 		}
 
-		html,
-		body,
-		#container {
+		html, body, #container {
 			margin: 0;
 			overflow: hidden;
 			width: 100%;
@@ -85,6 +83,20 @@
 			background-position: center;
 			background-repeat: no-repeat;
 		}
+
+		#fullscreenButton {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			z-index: 100;
+			padding: 10px 20px;
+			background-color: #f29f01;
+			color: white;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+			border-radius: 5px;
+		}
 	</style>
 </head>
 
@@ -96,7 +108,11 @@
 		<div id="loading__image"></div>
 	</div>
 
+	<!-- Nút Fullscreen -->
+	<button id="fullscreenButton">Fullscreen Mode</button>
+
 	<script>
+		// Cấu hình của ứng dụng
 		window.addEventListener("load", () => {
 			const config = {
 				"title": "Bacon_Ipsem",
@@ -156,6 +172,34 @@
 			Loader.init(config);
 			Loader.runPlayer((fill) => { }, (instance) => { });
 		});
+
+		// Kích hoạt chế độ Fullscreen và Landscape
+		const button = document.getElementById('fullscreenButton');
+
+		function goFullscreen() {
+			const elem = document.documentElement;
+
+			// Kích hoạt fullscreen
+			if (elem.requestFullscreen) {
+				elem.requestFullscreen();
+			} else if (elem.mozRequestFullScreen) { // Firefox
+				elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
+				elem.webkitRequestFullscreen();
+			} else if (elem.msRequestFullscreen) { // IE/Edge
+				elem.msRequestFullscreen();
+			}
+
+			// Khóa màn hình ở chế độ ngang
+			if (screen.orientation && screen.orientation.lock) {
+				screen.orientation.lock('landscape').catch(function(error) {
+					console.error('Orientation lock failed:', error);
+				});
+			}
+		}
+
+		// Gắn sự kiện click vào nút để kích hoạt fullscreen và landscape
+		button.addEventListener('click', goFullscreen);
 	</script>
 </body>
 
