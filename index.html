@@ -33,7 +33,7 @@
 			-moz-user-select: none;
 			-webkit-user-select: none;
 		}
-		body{
+		body {
 			background-color: black;
 		}
 		* {
@@ -42,10 +42,12 @@
 		}
 
 		canvas {
-			outline: none;
+			outline: none
 		}
 
-		html, body, #container {
+		html,
+		body,
+		#container {
 			margin: 0;
 			overflow: hidden;
 			width: 100%;
@@ -77,6 +79,7 @@
 			height: 100%;
 			transition: all 0.5s;
 		}
+
 		#loading__image {
 			position: absolute;
 			background-size: contain;
@@ -84,23 +87,38 @@
 			background-repeat: no-repeat;
 		}
 
-		#fullscreenButton {
+		#rotateButton {
 			position: absolute;
 			top: 10px;
 			left: 10px;
-			z-index: 100;
-			padding: 10px 20px;
+			z-index: 20;
+			padding: 10px;
 			background-color: #f29f01;
-			color: white;
+			color: #fff;
 			border: none;
 			cursor: pointer;
-			font-size: 16px;
-			border-radius: 5px;
+		}
+
+		body.rotated-right {
+			transform: rotate(90deg);
+			transform-origin: center;
+			width: 100vh;
+			height: 100vw;
+			overflow: hidden;
+		}
+
+		body.rotated-left {
+			transform: rotate(-90deg);
+			transform-origin: center;
+			width: 100vh;
+			height: 100vw;
+			overflow: hidden;
 		}
 	</style>
 </head>
 
 <body>
+	<button id="rotateButton">Rotate Screen</button>
 	<div id="splash__image">
 		<div id="progress__root">
 			<div id="progress__line"></div>
@@ -108,11 +126,7 @@
 		<div id="loading__image"></div>
 	</div>
 
-	<!-- Nút Fullscreen -->
-	<button id="fullscreenButton">Fullscreen Mode</button>
-
 	<script>
-		// Cấu hình của ứng dụng
 		window.addEventListener("load", () => {
 			const config = {
 				"title": "Bacon_Ipsem",
@@ -173,33 +187,18 @@
 			Loader.runPlayer((fill) => { }, (instance) => { });
 		});
 
-		// Kích hoạt chế độ Fullscreen và Landscape
-		const button = document.getElementById('fullscreenButton');
+		document.getElementById("rotateButton").addEventListener("click", () => {
+			const body = document.body;
 
-		function goFullscreen() {
-			const elem = document.documentElement;
-
-			// Kích hoạt fullscreen
-			if (elem.requestFullscreen) {
-				elem.requestFullscreen();
-			} else if (elem.mozRequestFullScreen) { // Firefox
-				elem.mozRequestFullScreen();
-			} else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
-				elem.webkitRequestFullscreen();
-			} else if (elem.msRequestFullscreen) { // IE/Edge
-				elem.msRequestFullscreen();
+			if (body.classList.contains("rotated-right")) {
+				body.classList.remove("rotated-right");
+				body.classList.add("rotated-left");
+			} else if (body.classList.contains("rotated-left")) {
+				body.classList.remove("rotated-left");
+			} else {
+				body.classList.add("rotated-right");
 			}
-
-			// Khóa màn hình ở chế độ ngang
-			if (screen.orientation && screen.orientation.lock) {
-				screen.orientation.lock('landscape').catch(function(error) {
-					console.error('Orientation lock failed:', error);
-				});
-			}
-		}
-
-		// Gắn sự kiện click vào nút để kích hoạt fullscreen và landscape
-		button.addEventListener('click', goFullscreen);
+		});
 	</script>
 </body>
 
