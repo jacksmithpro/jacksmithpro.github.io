@@ -10,7 +10,19 @@
 		content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 	<title>Bacon_Ipsem</title>
 
+	<link rel="manifest" href="/manifest.json">
 	<script type="text/javascript" src="./js/loader.js"></script>
+	<script type="text/javascript">
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+					console.log('ServiceWorker registered with scope:', registration.scope);
+				}, (error) => {
+					console.log('ServiceWorker registration failed:', error);
+				});
+			});
+		}
+	</script>
 	<style>
 	body{
 		background-color: black;
@@ -76,82 +88,65 @@
 	</div>
 
 	<script>
-
 		window.addEventListener("load", () => {
+			const config = {
+				"title": "Bacon_Ipsem",
+				"filename": "Bacon_Ipsem",
+				"stageScaleMode": "showAll",
+				"showFPS": false,
+				"debug": true,
+				"splash": "assets/den.png",
+				"start": null,
+				"width": 1024,
+				"height": 768,
+				"x": 0,
+				"y": 0,
+				"w": "100%",
+				"h": "100%",
+				"stageAlign": null,
+				"progressParserWeigth": 1,
+				"progress": {
+					"direction": "lr",
+					"back": "#130d02",
+					"line": "#f29f01",
+					"rect": [0.25, 0.77, 0.5, 0.01]
+				},
+				"box2dVersion": "none",
+				"binary": [
+					{
+						"name": "fonts.swf",
+						"path": "assets/fonts.swf",
+						"size": 30506
+					},
+					{
+						"name": "Bacon_Ipsem",
+						"path": "assets/luoiho.swf",
+						"size": 19888,
+						"resourceType": "GAME"
+					}
+				],
+				"runtime": "js/Main.js"
+			};
 
-			
-config = {
-    "title": "Bacon_Ipsem",
-    "filename": "Bacon_Ipsem",
-    "stageScaleMode": "showAll",
-    "showFPS": false,
-    "debug": true,
-    "splash": "assets/den.png",
-    "start": null,
-    "width": 1024,
-    "height": 768,
-    "x": 0,
-    "y": 0,
-    "w": "100%",
-    "h": "100%",
-    "stageAlign": null,
-    "progressParserWeigth": 1,
-    "progress": {
-        "direction": "lr",
-        "back": "#130d02",
-        "line": "#f29f01",
-        "rect": [
-            0.25,
-            0.77,
-            0.5,
-            0.01
-        ]
-    },
-    "box2dVersion": "none",
-    "binary": [
-        {
-            "name": "fonts.swf",
-            "path": "assets/fonts.swf",
-            "size": 30506
-        },
-        {
-            "name": "Bacon_Ipsem",
-            "path": "assets/luoiho.swf",
-            "size": 19888,
-            "resourceType": "GAME"
-        }
-    ],
-    "runtime": "js/Main.js"
-};
-const q = new URLSearchParams(location.search);
-			
-			for (let key of q.keys()){ 
+			const q = new URLSearchParams(location.search);
+			for (let key of q.keys()) { 
 				let value = q.get(key);
-
 				if (value.includes("<boolean>") || value.includes("<bool>")) {
 					let valueWithoutClass = value.replace(/<boolean>/g,'').replace(/<bool>/g,'').toLowerCase();
-					if (["true", "t", "1"].includes(valueWithoutClass)) config[key] = true;
-					else if (["false", "f", "0"].includes(valueWithoutClass)) config[key] = false;
-					else console.warn("Unable to cast URLSearchParam '" + key + "'='" + valueWithoutClass + "' as boolean");
+					config[key] = ["true", "t", "1"].includes(valueWithoutClass);
 				} else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
 					let valueWithoutClass = value.replace(/<int>/g,'').replace(/<integer>/g,'').replace(/<number>/g,'');
 					config[key] = parseInt(valueWithoutClass, 10);
 				} else {
-					// treat this as string
 					config[key] = q.get(key);
 				}
-
-				// console.log({key, value, result: config[key]}); 
-			};
-			for (let key in config.binary){ config.binary[key].path = config.binary[key].path+'?v='+Math.random();};
-
-
+			}
+			for (let key in config.binary){ 
+				config.binary[key].path = config.binary[key].path+'?v='+Math.random();
+			}
 			Loader.init(config);
-
-			Loader.runPlayer((fill) => { }, (instance) => { })
-
-		})
-
+			Loader.runPlayer((fill) => { }, (instance) => { });
+		});
 	</script>
 </body>
 
