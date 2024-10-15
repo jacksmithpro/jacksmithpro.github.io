@@ -558,7 +558,7 @@ function Calculator() {
 
 function Pinball() {
 	var $win = make_iframe_window({
-		src: "programs/pinball/space-cadet.html",
+		src: "https://3dpinball.github.io/",
 		icons: iconsAtTwoSizes("pinball"),
 		title: "3D Pinball for Windows - Space Cadet",
 		innerWidth: 600,
