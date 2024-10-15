@@ -22,6 +22,20 @@
 				});
 			});
 		}
+
+		// Hàm vào chế độ toàn màn hình
+		function goFullscreen() {
+			let elem = document.documentElement;
+			if (elem.requestFullscreen) {
+				elem.requestFullscreen();
+			} else if (elem.mozRequestFullScreen) { // Firefox
+				elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
+				elem.webkitRequestFullscreen();
+			} else if (elem.msRequestFullscreen) { // IE/Edge
+				elem.msRequestFullscreen();
+			}
+		}
 	</script>
 	<style>
 	body{
@@ -79,7 +93,7 @@
 	</style>
 </head>
 
-<body>
+<body onclick="goFullscreen()">
 	<div id="splash__image">
 		<div id="progress__root">
 			<div id="progress__line"></div>
