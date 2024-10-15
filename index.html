@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#382C2A">
-    <meta name="viewport"
-        content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="viewport" content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
     <title>JackSmith</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
@@ -44,7 +42,7 @@
         }
 
         canvas {
-            outline: none
+            outline: none;
         }
 
         html,
@@ -89,16 +87,16 @@
             background-repeat: no-repeat;
         }
 
-        /* CSS for rotating game when width < height */
-        .rotate-game {
+        /* CSS để xoay splash__image khi ở chế độ portrait (dọc) */
+        .rotate-splash {
             transform: rotate(90deg);
             transform-origin: center;
-            width: 100vh;
+            width: 100vh; /* Đảo ngược chiều rộng và chiều cao khi xoay */
             height: 100vw;
             position: absolute;
             top: 50%;
             left: 50%;
-            margin: -50vh 0 0 -50vw;
+            margin: -50vw 0 0 -50vh; /* Giữ splash__image ở giữa sau khi xoay */
         }
     </style>
 </head>
@@ -112,23 +110,23 @@
     </div>
 
     <div id="container">
-        <!-- Canvas for the game -->
+        <!-- Canvas cho game -->
         <canvas id="gameCanvas"></canvas>
     </div>
 
     <script>
         function checkOrientation() {
-            const gameCanvas = document.getElementById("gameCanvas");
+            const splashImage = document.getElementById("splash__image");
             if (window.innerWidth < window.innerHeight) {
-                // Rotate the game canvas if the screen is in portrait
-                gameCanvas.classList.add("rotate-game");
+                // Xoay splash__image nếu màn hình ở chế độ portrait
+                splashImage.classList.add("rotate-splash");
             } else {
-                // Remove rotation if the screen is in landscape
-                gameCanvas.classList.remove("rotate-game");
+                // Bỏ xoay nếu màn hình ở chế độ landscape
+                splashImage.classList.remove("rotate-splash");
             }
         }
 
-        // Check orientation on load
+        // Kiểm tra khi tải trang
         window.addEventListener("load", () => {
             checkOrientation();
 
@@ -175,9 +173,8 @@
             Loader.runPlayer((fill) => { }, (instance) => { });
         });
 
-        // Check orientation on resize
+        // Kiểm tra khi thay đổi kích thước
         window.addEventListener("resize", checkOrientation);
     </script>
 </body>
-
 </html>
