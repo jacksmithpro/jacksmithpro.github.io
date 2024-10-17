@@ -30,6 +30,7 @@
 
 	<!-- Manifest and Scripts -->
 	<link rel="manifest" href="/manifest.json">
+
 	<script type="text/javascript" src="./js/loader.js"></script>
 	<script type="text/javascript">
 		if ('serviceWorker' in navigator) {
@@ -42,7 +43,15 @@
 			});
 		}
 	</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3TRKSCS2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-QV3TRKSCS2');
+</script>
 	<!-- Styles -->
 	<style>
 		* {
