@@ -1,189 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	
-	<!-- SEO Optimization -->
-	<title>Play JackSmith - The Ultimate Weapon Crafting Game</title>
-	<meta name="description" content="Play JackSmith online - Become the best weapon-smith in this exciting game. Join JackSmith on a journey to craft weapons for warriors and battle enemies!">
-	<meta name="keywords" content="JackSmith,JackSmith Android, JackSmith Ios, JackSmith AppStore, JackSmith Chplay, play JackSmith, JackSmith game">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<!-- Open Graph for Social Media Sharing -->
-	<meta property="og:title" content="Play JackSmith - The Ultimate Weapon Crafting Game" />
-	<meta property="og:description" content="Join JackSmith in his journey of crafting weapons for warriors to defeat enemies in this exciting online game!" />
-	<meta property="og:image" content="assets/jacksmith_thumbnail.png" />
-	<meta property="og:url" content="https://yourgameurl.com" />
-	<meta property="og:type" content="website" />
+    <!-- SEO Optimization -->
+    <title>Play JackSmith - The Ultimate Weapon Crafting Game</title>
+    <meta name="description" content="Play JackSmith online - Become the best weapon-smith in this exciting game. Join JackSmith on a journey to craft weapons for warriors and battle enemies!">
+    <meta name="keywords" content="JackSmith, JackSmith Android, JackSmith Ios, JackSmith AppStore, JackSmith Chplay, play JackSmith, JackSmith game">
 
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Play JackSmith - The Ultimate Weapon Crafting Game" />
-	<meta name="twitter:description" content="Join JackSmith in his adventure of weapon crafting and fighting enemies. Play the game online now!" />
-	<meta name="twitter:image" content="assets/jacksmith_thumbnail.png" />
+    <meta property="og:title" content="Play JackSmith - The Ultimate Weapon Crafting Game" />
+    <meta property="og:description" content="Join JackSmith in his journey of crafting weapons for warriors to defeat enemies in this exciting online game!" />
+    <meta property="og:image" content="assets/jacksmith_thumbnail.png" />
+    <meta property="og:url" content="https://yourgameurl.com" />
+    <meta property="og:type" content="website" />
 
-	<!-- Manifest and Scripts -->
-	<link rel="manifest" href="/manifest.json">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Play JackSmith - The Ultimate Weapon Crafting Game" />
+    <meta name="twitter:description" content="Join JackSmith in his adventure of weapon crafting and fighting enemies. Play the game online now!" />
+    <meta name="twitter:image" content="assets/jacksmith_thumbnail.png" />
 
-	<script type="text/javascript" src="./js/loader.js"></script>
-	<script type="text/javascript">
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-					console.log('ServiceWorker registered with scope:', registration.scope);
-				}, (error) => {
-					console.log('ServiceWorker registration failed:', error);
-				});
-			});
-		}
-	</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3TRKSCS2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QV3TRKSCS2');
-</script>
-	<!-- Styles -->
-	<style>
-		* {
-			cursor: default;
-			user-select: none;
-			-o-user-select: none;
-			-ms-user-select: none;
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			margin: 0;
-			padding: 0;
-		}
-
-		body {
-			background-color: black;
-		}
-
-		canvas {
-			outline: none;
-		}
-
-		html, body, #container {
-			margin: 0;
-			overflow: hidden;
-			width: 100%;
-			height: 100%;
-			background-color: rgb(0, 0, 0);
-		}
-
-		#splash {
-			position: absolute;
-			visibility: hidden;
-			z-index: 10;
-		}
-
-		#splash__image {
-			position: absolute;
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
-			visibility: visible;
-			z-index: 10;
-		}
-
-		#progress__root {
-			position: absolute;
-		}
-
-		#progress__line {
-			width: 0;
-			height: 100%;
-			transition: all 0.5s;
-		}
-
-		#loading__image {
-			position: absolute;
-			background-size: contain;
-			background-position: center;
-			background-repeat: no-repeat;
-		}
-	</style>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3TRKSCS2"></script>
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-	<div id="splash__image">
-		<div id="progress__root">
-			<div id="progress__line"></div>
-		</div>
-		<div id="loading__image"></div>
-	</div>
 
-	<script>
-		window.addEventListener("load", () => {
-			const config = {
-				"title": "JackSmith",
-				"filename": "JackSmith",
-				"stageScaleMode": "showAll",
-				"showFPS": false,
-				"debug": true,
-				"splash": "assets/den.png",
-				"start": null,
-				"width": 1024,
-				"height": 768,
-				"x": 0,
-				"y": 0,
-				"w": "100%",
-				"h": "100%",
-				"stageAlign": null,
-				"progressParserWeigth": 1,
-				"progress": {
-					"direction": "lr",
-					"back": "#130d02",
-					"line": "#f29f01",
-					"rect": [0.25, 0.77, 0.5, 0.01]
-				},
-				"box2dVersion": "none",
-				"binary": [
-					{
-						"name": "fonts.swf",
-						"path": "assets/fonts.swf",
-						"size": 30506
-					},
-					{
-						"name": "JackSmith",
-						"path": "assets/jacksmith.swf",
-						"size": 19888,
-						"resourceType": "GAME"
-					}
-				],
-				"runtime": "js/Main.js"
-			};
+    <header id="header">
+        <img src="assets/logo.png" alt="Game Logo">
+        <h1>Play JackSmith - The Ultimate Weapon Crafting Game</h1>
+    </header>
 
-			const q = new URLSearchParams(location.search);
-			for (let key of q.keys()) { 
-				let value = q.get(key);
-				if (value.includes("<boolean>") || value.includes("<bool>")) {
-					let valueWithoutClass = value.replace(/<boolean>/g,'').replace(/<bool>/g,'').toLowerCase();
-					config[key] = ["true", "t", "1"].includes(valueWithoutClass);
-				} else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
-					let valueWithoutClass = value.replace(/<int>/g,'').replace(/<integer>/g,'').replace(/<number>/g,'');
-					config[key] = parseInt(valueWithoutClass, 10);
-				} else {
-					config[key] = q.get(key);
-				}
-			}
-			for (let key in config.binary){ 
-				config.binary[key].path = config.binary[key].path+'?v='+Math.random();
-			}
-			Loader.init(config);
-			Loader.runPlayer((fill) => { }, (instance) => { });
-		});
-	</script>
+    <main>
+        <div id="gameContainer">
+            <div id="frameCover">
+                <img src="assets/logo.png" alt="Game Logo" style="max-height: 10%; height: auto; margin-bottom: 20px;">
+                <button id="playButton" onclick="loadGame()">Play Game</button>
+            </div>
+            <iframe id="gameIframe" title="JackSmith Game"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <p style="color: white; font-size: 1.2em;">Banner Ads</p>
+    </footer>
+
 </body>
-
 </html>
