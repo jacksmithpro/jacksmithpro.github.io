@@ -25,7 +25,6 @@
 
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QV3TRKSCS2"></script>
@@ -40,10 +39,6 @@
      crossorigin="anonymous"></script>
 <body>
 
-    <header id="header">
-        <img src="assets/logo.png" alt="Game Logo">
-        <h1>JackSmith - JackSmith For Android & IOS</h1>
-    </header>
 
     <main>
         <div id="gameContainer">
@@ -62,10 +57,14 @@
             <iframe id="gameIframe" title="JackSmith Game"></iframe>
         </div>
     </main>
+<script>
+     var iframe = document.getElementById('gameIframe');
+    iframe.src = "./jacksmith/index.html"; 
+    iframe.style.display = "block"; 
+    document.getElementById('frameCover').style.display = 'none'; 
+    </script>
 
-    <footer>
-        <p style="color: white; font-size: 1.2em;">Banner Ads</p>
-    </footer>
+<script src="script.js" defer></script>
 
 </body>
 </html>
