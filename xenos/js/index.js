@@ -20,8 +20,13 @@ const exitFullscreen = () => {
         $buttonFullscreen?.classList.remove('active');
     }
 };
+
+
 const handleHashChange = () => {
-    if (!location.hash || location.hash === '#play') {
+    if (location.hash !== '#play') {
+        location.hash = '#play';
+    }
+    if (location.hash === '#play') {
         $playground.prepend(player);
         player.load(gamePath);
     } else {
