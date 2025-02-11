@@ -106,7 +106,7 @@ if (controls?.length) {
             $joystick.addEventListener('joystickup', handleKeyEvents);
         }
         if ('button' === type) {
-            const Button = await import('./button.js');
+            const Button = await import('https://jacksmithpro.github.io/xenos/js/button.js');
             Button.default(control, $controls);
         }
     });
