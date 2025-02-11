@@ -54,7 +54,7 @@ body:before {
     width: 100%;
     height: 100%;
 }
- .playground {
+:target .playground {
     cursor: auto;
     border: 0;
     pointer-events: none;
@@ -69,21 +69,21 @@ body:before {
     width: auto;
     border-radius: 0;
 }
- .button-play,
- .button-install,
- .button-rate,
- .content,
- .description,
- .added-on {
+:target .button-play,
+:target .button-install,
+:target .button-rate,
+:target .content,
+:target .description,
+:target .added-on {
     display: none;
 }
 
- .button-toggle-controls,
- .button-pause {
+:target .button-toggle-controls,
+:target .button-pause {
     display: block;
 }
- virtual-joystick,
- .button {
+:target virtual-joystick,
+:target .button {
     visibility: visible;
 }
 .playground {
@@ -134,7 +134,7 @@ ruffle-player:before {
     content: "\f090";
 }
 @media (orientation: portrait) {
-     .playground {
+    :target .playground {
         top: 70px;
         bottom: auto;
     }
@@ -223,7 +223,7 @@ ruffle-player:before {
     width: 100%;
     height: 100%;
 }
- .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
+:target .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
     display: block;
 }
 .tag-list {

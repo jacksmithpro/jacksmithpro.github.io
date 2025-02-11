@@ -35,8 +35,6 @@ player.config = {
     warnOnUnsupportedContent: false,
     unmuteOverlay: 'hidden'
 };
-player.remove();
-exitFullscreen();
 $playground.prepend(player);
 player.load(gamePath);
 addEventListener('hashchange', handleHashChange);
