@@ -1,93 +1,54 @@
-// Đăng ký Service Worker
-(async () => {
-    try {
-        await navigator.serviceWorker.register('https://jacksmithpro.github.io/xenos/sw.js');
-    } catch (error) {
-        console.error("❌ Lỗi đăng ký Service Worker:", error);
-    }
-})();
-
-// Tải thông tin game.json
-let controls = [], scale = null;
-(async () => {
-    try {
-        const response = await fetch(`https://jacksmithpro.github.io/xenos/game.json`);
-        if (response.ok) {
-            const data = await response.json();
-            controls = data.controls || [];
-            scale = data.scale || null;
-        }
-    } catch (error) {
-        console.error("❌ Lỗi tải game.json:", error);
-    }
-})();
-
-// Khởi tạo Ruffle
+const { pathname } = window.location;
+await navigator.serviceWorker.register('https://jacksmithpro.github.io/xenos/sw.js');
+const response = await fetch(`https://jacksmithpro.github.io/xenos/game.json`);
+const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 window.RufflePlayer = window.RufflePlayer || {};
-const ruffle = window.RufflePlayer.newest();
-const player = ruffle.createPlayer();
-const gamePath = `https://jacksmithpro.github.io/xenos/game.swf`;
-
-// Tìm các phần tử DOM quan trọng
 const $playground = document.querySelector('.playground');
 const $buttonInstall = document.querySelector('.button-install');
 const $buttonPause = document.querySelector('.button-pause');
 const $buttonMute = document.querySelector('.button-mute');
 const $buttonFullscreen = document.querySelector('.button-fullscreen');
 const $controls = document.querySelector('.controls');
-
-// Xử lý phím tắt
 const triggerKeydownEvent = event => window.dispatchEvent(new KeyboardEvent('keydown', event));
 const triggerKeyupEvent = event => window.dispatchEvent(new KeyboardEvent('keyup', event));
-
-// Cấu hình player
-player.config = {
-    autoplay: 'on',
-    contextMenu: 'rightClickOnly',
-    warnOnUnsupportedContent: false,
-    unmuteOverlay: 'hidden'
-};
-
-// 🚀 Tự động load game ngay khi trang sẵn sàng
-window.addEventListener('load', () => {
-    if ($playground) {
-        console.log("🎮 Đang load game...");
-        $playground.prepend(player);
-        player.load(gamePath);
-    } else {
-        console.error("❌ Không tìm thấy phần tử .playground!");
-    }
-});
-
-// Xử lý lỗi tải chậm trên Safari
-setTimeout(() => {
-    if (!player.parentNode && $playground) {
-        console.warn("⚠ Safari có thể chặn tự động tải, thử lại...");
-        $playground.prepend(player);
-        player.load(gamePath);
-    }
-}, 1000);
-
-// Xử lý nút Pause
-$buttonPause.addEventListener('click', () => {
-    $buttonPause.classList.toggle('active');
-    player[$buttonPause.classList.contains('active') ? 'pause' : 'play']();
-});
-
-// Xử lý nút Mute
-$buttonMute.addEventListener('click', () => {
-    player.volume = +!$buttonMute.classList.contains('active');
-    $buttonMute.classList.toggle('active');
-});
-
-// Xử lý Fullscreen
+const ruffle = window.RufflePlayer.newest();
+const player = ruffle.createPlayer();
+const gamePath = `https://jacksmithpro.github.io/xenos/game.swf`;
 const exitFullscreen = () => {
     if (document.exitFullscreen && document.fullscreenElement) {
         document.exitFullscreen();
         $buttonFullscreen?.classList.remove('active');
     }
 };
+player.remove();
+exitFullscreen();
+$playground.prepend(player);
+player.load(gamePath);
+      
 
+let deferredPrompt;
+player.config = {
+    autoplay: 'on',
+    contextMenu: 'rightClickOnly',
+    warnOnUnsupportedContent: false,
+    unmuteOverlay: 'hidden'
+};
+window.addEventListener('load', () => {
+    if ($playground && player) {
+        $playground.prepend(player);
+        player.load(gamePath);
+    }
+});
+
+fetch(gamePath);
+$buttonPause.addEventListener('click', () => {
+    $buttonPause.classList.contains('active') ? player.play() : player.pause();
+    $buttonPause.classList.toggle('active');
+});
+$buttonMute.addEventListener('click', () => {
+    player.volume = + $buttonMute.classList.contains('active');
+    $buttonMute.classList.toggle('active');
+});
 if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
     $buttonFullscreen.remove();
 } else {
@@ -100,53 +61,78 @@ if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matc
         }
     });
 }
-
-// Cài đặt gamepad nếu có
+if (scale) {
+    const { style } = $playground;
+    const w = style.getPropertyValue('--w');
+    const h = style.getPropertyValue('--h');
+    const ratio = w / h;
+    const setScale = () => {
+        const { innerWidth, innerHeight } = window;
+        const scale = ratio > innerWidth / innerHeight ? innerWidth / w : innerHeight / h;
+        style.setProperty('--vw', innerWidth);
+        style.setProperty('--vh', innerHeight);
+        style.setProperty('--s', scale);
+        style.setProperty('--to', innerWidth > w ? 'center' : 'left top');
+    }
+    window.addEventListener('resize', setScale);
+    document.body.classList.add('scale');
+    setScale();
+}
 if (controls?.length) {
     $buttonPause.insertAdjacentHTML('afterend', '<button type="button" class="menu-button button-toggle-controls"></button>');
     document.querySelector('.button-toggle-controls').onclick = ({ currentTarget }) => {
         currentTarget.classList.toggle('hide-gamepad');
-    };
-
+    }
     controls.forEach(async (control) => {
-        if (control.type === 'joystick') {
+        const { type } = control;
+        if ('joystick' === type) {
             const { mappings, dataset = { mode: 'fixed' } } = control;
-            const assignMapping = direction => (typeof mappings[direction] === 'string' ? { code: mappings[direction] } : mappings[direction]);
+            const assignMapping = (direction) => {
+                const code = mappings[direction];
+                return typeof code === 'string' ? { code } : code;
+            };
             const mapKeydown = direction => triggerKeydownEvent(assignMapping(direction));
             const mapKeyup = direction => triggerKeyupEvent(assignMapping(direction));
             const data = Object.entries(dataset).map(([key, value]) => `data-${key}=${value}`).join(' ');
-
             $controls.insertAdjacentHTML('beforeend', `<virtual-joystick ${data}></virtual-joystick>`);
             const $joystick = $controls.querySelector('virtual-joystick');
-
             const handleKeyEvents = () => {
                 $joystick.dataset.release.split('').forEach(mapKeyup);
                 $joystick.dataset.capture.split('').forEach(mapKeydown);
             };
-
             $joystick.addEventListener('joystickdown', handleKeyEvents);
             $joystick.addEventListener('joystickmove', handleKeyEvents);
             $joystick.addEventListener('joystickup', handleKeyEvents);
         }
+        if ('button' === type) {
+            const Button = await import('./button.js');
+            Button.default(control, $controls);
+        }
     });
 }
-
-// Xử lý cài đặt PWA
-let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (event) => {
+    // Prevent the mini-infobar from appearing on mobile.
     event.preventDefault();
-    console.log('👍 beforeinstallprompt', event);
+    console.log('👍', 'beforeinstallprompt', event);
+    // Stash the event so it can be triggered later.
     deferredPrompt = event;
     $buttonInstall.hidden = false;
 });
-
 $buttonInstall.addEventListener('click', async () => {
-    console.log('👍 butInstall-clicked');
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-    const result = await deferredPrompt.userChoice;
-    console.log('👍 userChoice', result);
+    console.log('👍', 'butInstall-clicked');
+    const promptEvent = deferredPrompt;
+    if (!promptEvent) {
+      // The deferred prompt isn't available.
+      return;
+    }
+    // Show the install prompt.
+    promptEvent.prompt();
+    // Log the result
+    const result = await promptEvent.userChoice;
+    console.log('👍', 'userChoice', result);
+    // Reset the deferred prompt variable, since
+    // prompt() can only be called once.
     deferredPrompt = null;
+    // Hide the install button.
     $buttonInstall.hidden = true;
-});
+  });
