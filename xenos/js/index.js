@@ -20,15 +20,7 @@ const exitFullscreen = () => {
         $buttonFullscreen?.classList.remove('active');
     }
 };
-const handleHashChange = () => {
-    if (location.hash === '#play') {
-        
-    }
-    else {
-        
-    }
-};
-let deferredPrompt;
+eferredPrompt;
 player.config = {
     autoplay: 'on',
     contextMenu: 'rightClickOnly',
@@ -37,8 +29,6 @@ player.config = {
 };
 $playground.prepend(player);
 player.load(gamePath);
-addEventListener('hashchange', handleHashChange);
-handleHashChange();
 fetch(gamePath);
 $buttonPause.addEventListener('click', () => {
     $buttonPause.classList.contains('active') ? player.play() : player.pause();
