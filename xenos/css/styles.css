@@ -131,7 +131,7 @@ ruffle-player:before {
     content: "\f090";
 }
 @media (orientation: portrait) {
-    #play:target .playground {
+    #play .playground {
         top: 70px;
         bottom: auto;
     }
@@ -220,7 +220,7 @@ ruffle-player:before {
     width: 100%;
     height: 100%;
 }
-#play:target .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
+#play .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
     display: block;
 }
 .tag-list {
