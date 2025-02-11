@@ -20,15 +20,28 @@ const exitFullscreen = () => {
         $buttonFullscreen?.classList.remove('active');
     }
 };
-eferredPrompt;
+const handleHashChange = () => {
+    if (location.hash === '#play') {
+
+    }
+    else {
+
+    }
+};
+let deferredPrompt;
 player.config = {
     autoplay: 'on',
     contextMenu: 'rightClickOnly',
     warnOnUnsupportedContent: false,
     unmuteOverlay: 'hidden'
 };
+addEventListener('hashchange', handleHashChange);
+handleHashChange();
+player.remove();
+exitFullscreen();
 $playground.prepend(player);
 player.load(gamePath);
+
 fetch(gamePath);
 $buttonPause.addEventListener('click', () => {
     $buttonPause.classList.contains('active') ? player.play() : player.pause();
