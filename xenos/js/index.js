@@ -13,7 +13,7 @@ const triggerKeydownEvent = event => window.dispatchEvent(new KeyboardEvent('key
 const triggerKeyupEvent = event => window.dispatchEvent(new KeyboardEvent('keyup', event));
 const ruffle = window.RufflePlayer.newest();
 const player = ruffle.createPlayer();
-const gamePath = `../game.swf`;
+const gamePath = `https://jacksmithpro.github.io/xenos/game.swf`;
 const exitFullscreen = () => {
     if (document.exitFullscreen && document.fullscreenElement) {
         document.exitFullscreen();
