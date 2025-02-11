@@ -103,10 +103,10 @@ ruffle-player:before {
 .scale .playground {
     transform: scale(var(--s));
 }
-#play.scale:target {
+#play.scale {
     overflow: hidden;
 }
-#play.scale:target .playground {
+#play.scale .playground {
     max-width: calc(1px * var(--w));
     width: calc(1px * var(--w));
     height: calc(1px * var(--h));
