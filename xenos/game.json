@@ -15,18 +15,18 @@
         },
         {
             "type": "button",
-            "label": "T",
-            "mappings": [{ "key": "t", "code": "KeyT" }]
-        },
-        {
-            "type": "button",
-            "label": "Y",
-            "mappings": [{ "key": "y", "code": "KeyY" }]
-        },
-        {
-            "type": "button",
             "label": "SP",
             "mappings": [{ "key": " ", "code": "Space", "which": 32 }]
+        },
+        {
+            "type": "button",
+            "label": "1",
+            "mappings": [{ "key": "1", "code": "Key2" }]
+        },
+        {
+            "type": "button",
+            "label": "2",
+            "mappings": [{ "key": "2", "code": "Key1" }]
         }
     ]
 }
