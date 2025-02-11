@@ -12,21 +12,6 @@
                 "s": "ArrowDown",
                 "w": "ArrowLeft"
             }
-        },
-        {
-            "type": "button",
-            "label": "1",
-            "mappings": [{ "key": "1", "code": "Key!" }]
-        },
-        {
-            "type": "button",
-            "label": "2",
-            "mappings": [{ "key": "2", "code": "Key2" }]
-        },
-        {
-            "type": "button",
-            "label": "SP",
-            "mappings": [{ "key": " ", "code": "Space", "which": 32 }]
         }
     ]
 }

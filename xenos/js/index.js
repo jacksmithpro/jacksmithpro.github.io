@@ -1,5 +1,5 @@
 const { pathname } = window.location;
-await navigator.serviceWorker.register('../sw.js');
+await navigator.serviceWorker.register('../../sw.js');
 const response = await fetch(`../game.json`);
 const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 window.RufflePlayer = window.RufflePlayer || {};
@@ -21,9 +21,14 @@ const exitFullscreen = () => {
     }
 };
 const handleHashChange = () => {
+    if (location.hash === '#play') {
         $playground.prepend(player);
         player.load(gamePath);
- 
+    }
+    else {
+        player.remove();
+        exitFullscreen();
+    }
 };
 let deferredPrompt;
 player.config = {

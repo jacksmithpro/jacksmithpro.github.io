@@ -15,11 +15,17 @@
     <link rel="stylesheet" href="./css/styles.css?v=1.0">
     <link rel="stylesheet" href="./game.css?v=1.0">
     <!-- Google tag (gtag.js) -->
+  
     <style>
         #play:before {
             background-image: url(./poster.jpg)
         }
     </style>
+    <script>
+        window.onload = function() {
+            window.location.href = "#play";
+        };
+    </script>
 </head>
 <body id="play">
     <main>
@@ -47,6 +53,6 @@
     <script type="module" src="./js/virtual-joystick.js"></script>
     <script src="./js/ruffle.js"></script>
     <script src="./js/player.js"></script>
-    <script type="module"  src="./js/index.js"></script>
+    <script type="module" src="./js/index.js"></script>
 </body>
 </html>
