@@ -25,8 +25,11 @@ player.config = {
     autoplay: 'on',
     contextMenu: 'rightClickOnly',
     warnOnUnsupportedContent: false,
-    unmuteOverlay: 'hidden'
+    unmuteOverlay: 'hidden',
+    width: 700,  // Thêm chiều rộng
+    height: 500  // Thêm chiều cao
 };
+
 playground.prepend(player);
 player.load(gamePath);
 
