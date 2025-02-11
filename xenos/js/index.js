@@ -22,12 +22,10 @@ const exitFullscreen = () => {
 };
 const handleHashChange = () => {
     if (location.hash === '#play') {
-        $playground.prepend(player);
-        player.load(gamePath);
+        
     }
     else {
-        player.remove();
-        exitFullscreen();
+        
     }
 };
 let deferredPrompt;
@@ -37,9 +35,10 @@ player.config = {
     warnOnUnsupportedContent: false,
     unmuteOverlay: 'hidden'
 };
+player.remove();
+exitFullscreen();
 $playground.prepend(player);
 player.load(gamePath);
-player.play();
 addEventListener('hashchange', handleHashChange);
 handleHashChange();
 fetch(gamePath);
