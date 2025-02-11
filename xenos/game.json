@@ -16,7 +16,7 @@
         {
             "type": "button",
             "label": "1",
-            "mappings": [{ "key": "1", "code": "Key1" }]
+            "mappings": [{ "key": "1", "code": "Key!" }]
         },
         {
             "type": "button",
