@@ -1,67 +1,41 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width">
     <title>Achilles</title>
-
-    <!-- PWA Settings -->
     <link rel="manifest" href="./manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Achilles">
     <meta name="apple-mobile-web-app-title" content="Achilles">
-
-    <!-- Favicon & Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/jpg" sizes="144x144" href="./icon.png">
     <link rel="apple-touch-icon" type="image/jpg" sizes="144x144" href="./icon.png">
-
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="./css/styles.css?v=1.0">
     <link rel="stylesheet" href="./game.css?v=1.0">
-
-    <!-- Background Poster -->
+    <!-- Google tag (gtag.js) -->
+  
     <style>
-        body::before {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100vh;
-            background-image: url(./poster.jpg);
-            background-size: cover;
-            background-position: center;
-            position: fixed;
-            z-index: -1;
+        #play:before {
+            background-image: url(./poster.jpg)
         }
     </style>
 
-    <script>
-        function startGame() {
-            console.log("🎮 Đang khởi động game...");
-            setTimeout(() => {
-                if (window.initGame) {
-                    window.initGame();
-                } else {
-                    console.warn("⚠ Không tìm thấy hàm initGame, thử lại sau...");
-                    setTimeout(startGame, 500);
-                }
-            }, 500);
-        }
-    </script>
 </head>
-
-<body onload="startGame()">
+<body id="play">
     <main>
-        <div class="content"></div>
+        <div class="content">
+        </div>
         <div class="playground" style="--w: 700; --h: 500;"></div>
+        </div>
         <div class="controls">
             <button type="button" class="menu-button button-pause"></button>
             <button type="button" class="menu-button button-fullscreen"></button>
             <button type="button" class="menu-button button-mute"></button>
         </div>
+       
     </main>
-
-    <!-- Scripts -->
     <script type="module" src="./js/virtual-joystick.js"></script>
     <script src="./js/ruffle.js"></script>
     <script src="./js/player.js"></script>
