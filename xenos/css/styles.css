@@ -54,7 +54,7 @@ body:before {
     width: 100%;
     height: 100%;
 }
-#play.active .playground {
+#play#play.active .playground {
     cursor: auto;
     border: 0;
     pointer-events: none;
@@ -69,21 +69,21 @@ body:before {
     width: auto;
     border-radius: 0;
 }
-#play.active .button-play,
-#play.active .button-install,
-#play.active .button-rate,
-#play.active .content,
-#play.active .description,
-#play.active .added-on {
+#play#play.active .button-play,
+#play#play.active .button-install,
+#play#play.active .button-rate,
+#play#play.active .content,
+#play#play.active .description,
+#play#play.active .added-on {
     display: none;
 }
 
-#play.active .button-toggle-controls,
-#play.active .button-pause {
+#play#play.active .button-toggle-controls,
+#play#play.active .button-pause {
     display: block;
 }
-#play.active virtual-joystick,
-#play.active .button {
+#play#play.active virtual-joystick,
+#play#play.active .button {
     visibility: visible;
 }
 .playground {
@@ -106,10 +106,10 @@ ruffle-player:before {
 .scale .playground {
     transform: scale(var(--s));
 }
-#play.scale:target {
+#play.scale#play.active {
     overflow: hidden;
 }
-#play.scale:target .playground {
+#play.scale#play.active .playground {
     max-width: calc(1px * var(--w));
     width: calc(1px * var(--w));
     height: calc(1px * var(--h));
@@ -134,7 +134,7 @@ ruffle-player:before {
     content: "\f090";
 }
 @media (orientation: portrait) {
-    #play.active .playground {
+    #play#play.active .playground {
         top: 70px;
         bottom: auto;
     }
@@ -223,7 +223,7 @@ ruffle-player:before {
     width: 100%;
     height: 100%;
 }
-#play.active .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
+#play#play.active .button-pause.active ~ .menu-button:not(.button-toggle-controls) {
     display: block;
 }
 .tag-list {
@@ -256,7 +256,7 @@ main {
 main :where(h1, p) {
     mix-blend-mode: difference;
 }
-body:not(:target) main {
+body:not(#play.active) main {
     margin: 20px;
     box-sizing: border-box;
     overflow: hidden;
