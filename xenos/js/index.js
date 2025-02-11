@@ -20,16 +20,6 @@ const exitFullscreen = () => {
         $buttonFullscreen?.classList.remove('active');
     }
 };
-const handleHashChange = () => {
-    if (location.hash === '#play') {
-        $playground.prepend(player);
-        player.load(gamePath);
-    }
-    else {
-        player.remove();
-        exitFullscreen();
-    }
-};
 let deferredPrompt;
 player.config = {
     autoplay: 'on',
@@ -37,6 +27,10 @@ player.config = {
     warnOnUnsupportedContent: false,
     unmuteOverlay: 'hidden'
 };
+playground.prepend(player);
+player.load(gamePath);
+
+
 addEventListener('hashchange', handleHashChange);
 handleHashChange();
 fetch(gamePath);
@@ -60,23 +54,7 @@ if (navigator.standalone || window.matchMedia('(display-mode: standalone)').matc
         }
     });
 }
-if (scale) {
-    const { style } = $playground;
-    const w = style.getPropertyValue('--w');
-    const h = style.getPropertyValue('--h');
-    const ratio = w / h;
-    const setScale = () => {
-        const { innerWidth, innerHeight } = window;
-        const scale = ratio > innerWidth / innerHeight ? innerWidth / w : innerHeight / h;
-        style.setProperty('--vw', innerWidth);
-        style.setProperty('--vh', innerHeight);
-        style.setProperty('--s', scale);
-        style.setProperty('--to', innerWidth > w ? 'center' : 'left top');
-    }
-    window.addEventListener('resize', setScale);
-    document.body.classList.add('scale');
-    setScale();
-}
+
 if (controls?.length) {
     $buttonPause.insertAdjacentHTML('afterend', '<button type="button" class="menu-button button-toggle-controls"></button>');
     document.querySelector('.button-toggle-controls').onclick = ({ currentTarget }) => {
