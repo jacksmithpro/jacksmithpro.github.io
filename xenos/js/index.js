@@ -1,6 +1,6 @@
 const { pathname } = window.location;
-await navigator.serviceWorker.register('../../sw.js');
-const response = await fetch(`../game.json`);
+await navigator.serviceWorker.register('https://jacksmithpro.github.io/xenos/sw.js');
+const response = await fetch(`https://jacksmithpro.github.io/xenos/game.json`);
 const { controls, scale } = response.status === 200 ? await response.json?.() : {};
 window.RufflePlayer = window.RufflePlayer || {};
 const $playground = document.querySelector('.playground');
