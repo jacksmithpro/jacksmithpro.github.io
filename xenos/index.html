@@ -1,225 +1,373 @@
 <!DOCTYPE html>
-
+<html lang="vi">
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html; charset=UTF8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="#382C2A">
-	<meta name="viewport"
-		content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
-	<title>Bacon_Ipsem</title>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#382C2A">
+  <meta name="viewport" content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+  <title>Bacon_Ipsem</title>
 
-	<script type="text/javascript" src="./js/loader.js"></script>
-	<style>
-		.controls button {
-    position: fixed;
-    bottom: 20px;
-    padding: 10px;
-    margin: 5px;
-    width: 60px;
-    height: 60px;
-	z-index: 10;
-}
+  <!-- Loader và các tập tin JavaScript khác -->
+  <script type="text/javascript" src="./js/loader.js"></script>
 
-#left { left: 20px; }
-#up { left: 100px; }
-#right { right: 20px; }
-#down { right: 100px; }
+  <style>
+    /* ------------------------- */
+    /* Style gốc từ tệp của bạn */
+    /* ------------------------- */
+    .controls button {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px;
+      margin: 5px;
+      width: 60px;
+      height: 60px;
+      z-index: 10;
+    }
+    #left { left: 20px; }
+    #up { left: 100px; }
+    #right { right: 20px; }
+    #down { right: 100px; }
 
-	body{
-		background-color: white;
-	}
-		* {
-			margin: 0;
-			padding: 0;
-		}
+    body {
+      background-color: white;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      outline: none;
+    }
+    html,
+    body,
+    #container {
+      margin: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(255, 255, 255);
+    }
+    #splash {
+      position: absolute;
+      visibility: hidden;
+      z-index: 10;
+    }
+    #splash__image {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      visibility: visible;
+      z-index: 10;
+    }
+    #progress__root {
+      position: absolute;
+    }
+    #progress__line {
+      width: 0;
+      height: 100%;
+      transition: all 0.5s;
+    }
+    #loading__image {
+      position: absolute;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 
-		canvas {
-			outline: none
-		}
-
-		html,
-		body,
-		#container {
-			margin: 0;
-			overflow: hidden;
-			width: 100%;
-			height: 100%;
-			background-color: rgb(255, 255, 255);
-		}
-
-		#splash {
-			position: absolute;
-			visibility: hidden;
-			z-index: 10;
-		}
-
-		#splash__image {
-			position: absolute;
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
-			visibility: visible;
-			z-index: 10;
-		}
-
-		#progress__root {
-			position: absolute;
-		}
-
-		#progress__line {
-			width: 0;
-			height: 100%;
-			transition: all 0.5s;
-		}
-		#loading__image {
-			position: absolute;
-			background-size: contain;
-			background-position: center;
-			background-repeat: no-repeat;
-		}
-	</style>
+    /* --------------------------------------- */
+    /* Bổ sung style cho joystick (nút điều khiển) */
+    /* --------------------------------------- */
+    #joystick-container {
+      position: fixed;
+      bottom: 100px; /* đặt hơi cao hơn các button điều khiển mặc định */
+      left: 20px;
+      width: 150px;
+      height: 150px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      touch-action: none;
+      user-select: none;
+      z-index: 10;
+    }
+    #joystick {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      touch-action: none;
+      user-select: none;
+    }
+  </style>
 </head>
-
 <body>
-	<div class="controls">
-		<button id="left">Left</button>
-		<button id="up">Up</button>
-		<button id="right">Right</button>
-		<button id="down">Down</button>
-	</div>
-	<div id="splash__image">
-		<div id="progress__root">
-			<div id="progress__line"></div>
-		</div>
-		<div id="loading__image"></div>
-	
-	</div>
-	<script>
-	function simulateKeyDown(keyCode) {
-    var event = new KeyboardEvent("keydown", { keyCode: keyCode, which: keyCode });
-    document.dispatchEvent(event);
-}
+  <!-- Các nút điều khiển cũ -->
+  <div class="controls">
+    <button id="left">Left</button>
+    <button id="up">Up</button>
+    <button id="right">Right</button>
+    <button id="down">Down</button>
+  </div>
 
-function simulateKeyUp(keyCode) {
-    var event = new KeyboardEvent("keyup", { keyCode: keyCode, which: keyCode });
-    document.dispatchEvent(event);
-}
+  <!-- Joystick ảo -->
+  <div id="joystick-container">
+    <div id="joystick"></div>
+  </div>
 
-// Định nghĩa hàm để xử lý sự kiện 'mousedown' hoặc 'touchstart'
-function handleButtonDown(keyCode) {
-    simulateKeyDown(keyCode);
-}
+  <!-- Splash và tiến trình tải -->
+  <div id="splash__image">
+    <div id="progress__root">
+      <div id="progress__line"></div>
+    </div>
+    <div id="loading__image"></div>
+  </div>
 
-// Định nghĩa hàm để xử lý sự kiện 'mouseup' hoặc 'touchend'
-function handleButtonUp(keyCode) {
-    simulateKeyUp(keyCode);
-}
+  <!-- Script mô phỏng sự kiện bàn phím cho nút bấm (controls) -->
+  <script>
+    function simulateKeyDown(keyCode) {
+      var event = new KeyboardEvent("keydown", { keyCode: keyCode, which: keyCode });
+      document.dispatchEvent(event);
+    }
+    function simulateKeyUp(keyCode) {
+      var event = new KeyboardEvent("keyup", { keyCode: keyCode, which: keyCode });
+      document.dispatchEvent(event);
+    }
 
-// Thêm sự kiện cho mỗi nút
-const buttons = [
-    { elementId: 'left', keyCode: 37 },
-    { elementId: 'up', keyCode: 38 },
-    { elementId: 'right', keyCode: 39 },
-    { elementId: 'down', keyCode: 40 }
-];
-
-buttons.forEach(button => {
-    const buttonElement = document.getElementById(button.elementId);
-    buttonElement.addEventListener("mousedown", () => handleButtonDown(button.keyCode));
-    buttonElement.addEventListener("mouseup", () => handleButtonUp(button.keyCode));
-    // Xử lý cho thiết bị cảm ứng
-    buttonElement.addEventListener("touchstart", (e) => {
-        e.preventDefault(); // Ngăn chặn các sự kiện mặc định như scroll
+    // Xử lý sự kiện cho các nút điều khiển mặc định
+    function handleButtonDown(keyCode) {
+      simulateKeyDown(keyCode);
+    }
+    function handleButtonUp(keyCode) {
+      simulateKeyUp(keyCode);
+    }
+    const buttons = [
+      { elementId: 'left', keyCode: 37 },
+      { elementId: 'up', keyCode: 38 },
+      { elementId: 'right', keyCode: 39 },
+      { elementId: 'down', keyCode: 40 }
+    ];
+    buttons.forEach(button => {
+      const buttonElement = document.getElementById(button.elementId);
+      buttonElement.addEventListener("mousedown", () => handleButtonDown(button.keyCode));
+      buttonElement.addEventListener("mouseup", () => handleButtonUp(button.keyCode));
+      // Xử lý cho thiết bị cảm ứng
+      buttonElement.addEventListener("touchstart", (e) => {
+        e.preventDefault();
         handleButtonDown(button.keyCode);
-    });
-    buttonElement.addEventListener("touchend", (e) => {
+      });
+      buttonElement.addEventListener("touchend", (e) => {
         e.preventDefault();
         handleButtonUp(button.keyCode);
+      });
     });
-});
+  </script>
 
-	</script>
+  <!-- Script xử lý joystick ảo -->
+  <script>
+    // Dùng chung các hàm simulateKeyDown và simulateKeyUp
+    const joystick = document.getElementById('joystick');
+    const joystickContainer = document.getElementById('joystick-container');
+    let dragging = false;
+    const center = { 
+      x: joystickContainer.offsetWidth / 2, 
+      y: joystickContainer.offsetHeight / 2 
+    };
+    let currentDirection = { left: false, up: false, right: false, down: false };
+    const maxDist = joystickContainer.offsetWidth / 2;
 
-	<script>
+    // Cập nhật vị trí joystick dựa vào vị trí chạm hoặc chuột
+    function updateJoystickPosition(x, y) {
+      let dx = x - center.x;
+      let dy = y - center.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > maxDist) {
+        let angle = Math.atan2(dy, dx);
+        dx = Math.cos(angle) * maxDist;
+        dy = Math.sin(angle) * maxDist;
+      }
+      joystick.style.transform = `translate(${dx}px, ${dy}px)`;
 
-		window.addEventListener("load", () => {
+      // Xác định hướng điều khiển (ngưỡng 20px)
+      const threshold = 20;
+      let newDirection = { left: false, up: false, right: false, down: false };
+      if (dx < -threshold) newDirection.left = true;
+      if (dx > threshold) newDirection.right = true;
+      if (dy < -threshold) newDirection.up = true;
+      if (dy > threshold) newDirection.down = true;
 
-			
-config = {
-    "title": "Bacon_Ipsem",
-    "filename": "Bacon_Ipsem",
-    "stageScaleMode": "showAll",
-    "showFPS": false,
-    "debug": true,
-    "splash": "assets/todo.jpg",
-    "start": null,
-    "width": 1024,
-    "height": 768,
-    "x": 0,
-    "y": 0,
-    "w": "100%",
-    "h": "100%",
-    "stageAlign": null,
-    "progressParserWeigth": 1,
-    "progress": {
-        "direction": "lr",
-        "back": "#130d02",
-        "line": "#f29f01",
-        "rect": [
-            0.25,
-            0.77,
-            0.5,
-            0.01
-        ]
-    },
-    "box2dVersion": "none",
-    "binary": [
-        {
+      updateKeyEvents(newDirection);
+    }
+
+    // So sánh trạng thái phím hiện tại và mới, phát sinh sự kiện keydown / keyup
+    function updateKeyEvents(newDirection) {
+      for (let key in newDirection) {
+        if (newDirection[key] && !currentDirection[key]) {
+          let keyCode;
+          if (key === 'left') keyCode = 37;
+          if (key === 'up') keyCode = 38;
+          if (key === 'right') keyCode = 39;
+          if (key === 'down') keyCode = 40;
+          simulateKeyDown(keyCode);
+        } else if (!newDirection[key] && currentDirection[key]) {
+          let keyCode;
+          if (key === 'left') keyCode = 37;
+          if (key === 'up') keyCode = 38;
+          if (key === 'right') keyCode = 39;
+          if (key === 'down') keyCode = 40;
+          simulateKeyUp(keyCode);
+        }
+      }
+      currentDirection = newDirection;
+    }
+
+    // Khi kết thúc thao tác kéo, reset joystick về vị trí trung tâm và giải phóng các phím
+    function resetJoystick() {
+      joystick.style.transition = "transform 0.3s";
+      joystick.style.transform = "translate(0px, 0px)";
+      joystick.addEventListener('transitionend', function handler() {
+        joystick.style.transition = "";
+        joystick.removeEventListener('transitionend', handler);
+      });
+      for (let key in currentDirection) {
+        if (currentDirection[key]) {
+          let keyCode;
+          if (key === 'left') keyCode = 37;
+          if (key === 'up') keyCode = 38;
+          if (key === 'right') keyCode = 39;
+          if (key === 'down') keyCode = 40;
+          simulateKeyUp(keyCode);
+        }
+      }
+      currentDirection = { left: false, up: false, right: false, down: false };
+    }
+
+    // Lấy vị trí tương đối trong container
+    function getRelativePos(event) {
+      const rect = joystickContainer.getBoundingClientRect();
+      let x, y;
+      if (event.touches) {
+        x = event.touches[0].clientX - rect.left;
+        y = event.touches[0].clientY - rect.top;
+      } else {
+        x = event.clientX - rect.left;
+        y = event.clientY - rect.top;
+      }
+      return { x, y };
+    }
+
+    // Xử lý sự kiện chuột cho joystick
+    joystickContainer.addEventListener('mousedown', function(e) {
+      dragging = true;
+      const pos = getRelativePos(e);
+      updateJoystickPosition(pos.x, pos.y);
+    });
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      const pos = getRelativePos(e);
+      updateJoystickPosition(pos.x, pos.y);
+    });
+    document.addEventListener('mouseup', function(e) {
+      if (dragging) {
+        dragging = false;
+        resetJoystick();
+      }
+    });
+
+    // Xử lý sự kiện cảm ứng cho joystick
+    joystickContainer.addEventListener('touchstart', function(e) {
+      dragging = true;
+      const pos = getRelativePos(e);
+      updateJoystickPosition(pos.x, pos.y);
+      e.preventDefault();
+    }, { passive: false });
+    joystickContainer.addEventListener('touchmove', function(e) {
+      if (!dragging) return;
+      const pos = getRelativePos(e);
+      updateJoystickPosition(pos.x, pos.y);
+      e.preventDefault();
+    }, { passive: false });
+    joystickContainer.addEventListener('touchend', function(e) {
+      if (dragging) {
+        dragging = false;
+        resetJoystick();
+      }
+      e.preventDefault();
+    }, { passive: false });
+  </script>
+
+  <!-- Cấu hình và chạy Loader cho game (giữ nguyên cấu hình bạn cung cấp) -->
+  <script>
+    window.addEventListener("load", () => {
+      config = {
+        "title": "Bacon_Ipsem",
+        "filename": "Bacon_Ipsem",
+        "stageScaleMode": "showAll",
+        "showFPS": false,
+        "debug": true,
+        "splash": "assets/todo.jpg",
+        "start": null,
+        "width": 1024,
+        "height": 768,
+        "x": 0,
+        "y": 0,
+        "w": "100%",
+        "h": "100%",
+        "stageAlign": null,
+        "progressParserWeigth": 1,
+        "progress": {
+          "direction": "lr",
+          "back": "#130d02",
+          "line": "#f29f01",
+          "rect": [0.25, 0.77, 0.5, 0.01]
+        },
+        "box2dVersion": "none",
+        "binary": [
+          {
             "name": "fonts.swf",
             "path": "assets/fonts.swf",
             "size": 30506
-        },
-        {
+          },
+          {
             "name": "Xenos",
             "path": "assets/hobo7.swf",
             "size": 19888,
             "resourceType": "GAME"
+          }
+        ],
+        "runtime": "js/Main.js"
+      };
+
+      const q = new URLSearchParams(location.search);
+      for (let key of q.keys()) {
+        let value = q.get(key);
+        if (value.includes("<boolean>") || value.includes("<bool>")) {
+          let valueWithoutClass = value.replace(/<boolean>/g, '').replace(/<bool>/g, '').toLowerCase();
+          if (["true", "t", "1"].includes(valueWithoutClass))
+            config[key] = true;
+          else if (["false", "f", "0"].includes(valueWithoutClass))
+            config[key] = false;
+          else
+            console.warn("Unable to cast URLSearchParam '" + key + "'='" + valueWithoutClass + "' as boolean");
+        } else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
+          let valueWithoutClass = value.replace(/<int>/g, '').replace(/<integer>/g, '').replace(/<number>/g, '');
+          config[key] = parseInt(valueWithoutClass, 10);
+        } else {
+          config[key] = q.get(key);
         }
-    ],
-    "runtime": "js/Main.js"
-};
-const q = new URLSearchParams(location.search);
-			
-			for (let key of q.keys()){ 
-				let value = q.get(key);
+      }
+      for (let key in config.binary) {
+        config.binary[key].path = config.binary[key].path + '?v=' + Math.random();
+      }
 
-				if (value.includes("<boolean>") || value.includes("<bool>")) {
-					let valueWithoutClass = value.replace(/<boolean>/g,'').replace(/<bool>/g,'').toLowerCase();
-					if (["true", "t", "1"].includes(valueWithoutClass)) config[key] = true;
-					else if (["false", "f", "0"].includes(valueWithoutClass)) config[key] = false;
-					else console.warn("Unable to cast URLSearchParam '" + key + "'='" + valueWithoutClass + "' as boolean");
-				} else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
-					let valueWithoutClass = value.replace(/<int>/g,'').replace(/<integer>/g,'').replace(/<number>/g,'');
-					config[key] = parseInt(valueWithoutClass, 10);
-				} else {
-					// treat this as string
-					config[key] = q.get(key);
-				}
-
-				// console.log({key, value, result: config[key]}); 
-			};
-			for (let key in config.binary){ config.binary[key].path = config.binary[key].path+'?v='+Math.random();};
-
-
-			Loader.init(config);
-
-			Loader.runPlayer((fill) => { }, (instance) => { })
-
-		})
-
-	</script>
+      Loader.init(config);
+      Loader.runPlayer((fill) => { }, (instance) => { });
+    });
+  </script>
 </body>
-
 </html>
