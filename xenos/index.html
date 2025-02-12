@@ -18,17 +18,20 @@
     /* ------------------------- */
     .controls button {
       position: fixed;
-      bottom: 20px;
       padding: 10px;
       margin: 5px;
       width: 60px;
       height: 60px;
       z-index: 10;
     }
-    #left { left: 20px; }
-    #up { left: 100px; }
-    #right { right: 20px; }
-    #down { right: 100px; }
+    #key2 { right: 100px;       bottom: 20px;
+    }
+    #keyp { right: 20px;      bottom: 20px;
+    }
+    #keysp { right: 100px;       bottom: 100px;
+    }
+    #key1 { right: 20px;      bottom: 100px;
+    }
 
     body {
       background-color: white;
@@ -109,10 +112,10 @@
 <body>
   <!-- Các nút điều khiển cũ -->
   <div class="controls">
-    <button id="left">Left</button>
-    <button id="up">Up</button>
-    <button id="right">Right</button>
-    <button id="down">Down</button>
+    <button id="key2">2</button>
+    <button id="keyp">P</button>
+    <button id="keysp">SP</button>
+    <button id="key1">1</button>
   </div>
 
   <!-- Joystick ảo -->
@@ -147,10 +150,10 @@
       simulateKeyUp(keyCode);
     }
     const buttons = [
-      { elementId: 'left', keyCode: 37 },
-      { elementId: 'up', keyCode: 38 },
-      { elementId: 'right', keyCode: 39 },
-      { elementId: 'down', keyCode: 40 }
+      { elementId: 'key1', keyCode: 49 },
+      { elementId: 'keyp', keyCode: 50 },
+      { elementId: 'keysp', keyCode: 32 },
+      { elementId: 'key2', keyCode: 80 }
     ];
     buttons.forEach(button => {
       const buttonElement = document.getElementById(button.elementId);
