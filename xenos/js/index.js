@@ -22,10 +22,12 @@ const exitFullscreen = () => {
 };
 const handleHashChange = () => {
     if (location.hash === '#play') {
-        
+        $playground.prepend(player);
+        player.load(gamePath);
     }
     else {
-        
+        player.remove();
+        exitFullscreen();
     }
 };
 let deferredPrompt;
@@ -35,10 +37,6 @@ player.config = {
     warnOnUnsupportedContent: false,
     unmuteOverlay: 'hidden'
 };
-player.remove();
-exitFullscreen();
-$playground.prepend(player);
-player.load(gamePath);
 addEventListener('hashchange', handleHashChange);
 handleHashChange();
 fetch(gamePath);
@@ -106,7 +104,7 @@ if (controls?.length) {
             $joystick.addEventListener('joystickup', handleKeyEvents);
         }
         if ('button' === type) {
-            const Button = await import('https://jacksmithpro.github.io/xenos/js/button.js');
+            const Button = await import('./button.js');
             Button.default(control, $controls);
         }
     });
