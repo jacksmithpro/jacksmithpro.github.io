@@ -1,44 +1,225 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Achilles</title>
-    <link rel="manifest" href="./manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Achilles">
-    <meta name="apple-mobile-web-app-title" content="Achilles">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/jpg" sizes="144x144" href="./icon.png">
-    <link rel="apple-touch-icon" type="image/jpg" sizes="144x144" href="./icon.png">
-    <link rel="stylesheet" href="./css/styles.css?v=1.0">
-    <link rel="stylesheet" href="./game.css?v=1.0">
-    <!-- Google tag (gtag.js) -->
-  
-    <style>
-        #play:before {
-            background-image: url(./poster.jpg)
-        }
-    </style>
 
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#382C2A">
+	<meta name="viewport"
+		content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+	<title>Bacon_Ipsem</title>
+
+	<script type="text/javascript" src="./js/loader.js"></script>
+	<style>
+		.controls button {
+    position: fixed;
+    bottom: 20px;
+    padding: 10px;
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+	z-index: 10;
+}
+
+#left { left: 20px; }
+#up { left: 100px; }
+#right { right: 20px; }
+#down { right: 100px; }
+
+	body{
+		background-color: white;
+	}
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		canvas {
+			outline: none
+		}
+
+		html,
+		body,
+		#container {
+			margin: 0;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			background-color: rgb(255, 255, 255);
+		}
+
+		#splash {
+			position: absolute;
+			visibility: hidden;
+			z-index: 10;
+		}
+
+		#splash__image {
+			position: absolute;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			visibility: visible;
+			z-index: 10;
+		}
+
+		#progress__root {
+			position: absolute;
+		}
+
+		#progress__line {
+			width: 0;
+			height: 100%;
+			transition: all 0.5s;
+		}
+		#loading__image {
+			position: absolute;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+	</style>
 </head>
-<body id="play">
-    <main>
-        <div class="content">
-        </div>
-        <div class="playground" style="--w: 700; --h: 500;"></div>
-        </div>
-        <div class="controls">
-            <button type="button" class="menu-button button-pause"></button>
-            <button type="button" class="menu-button button-fullscreen"></button>
-            <button type="button" class="menu-button button-mute"></button>
-        </div>
-       
-    </main>
-    <script type="module" src="./js/virtual-joystick.js"></script>
-    <script src="./js/ruffle.js"></script>
-    <script src="./js/player.js"></script>
-    <script type="module" src="./js/index.js"></script>
+
+<body>
+	<div class="controls">
+		<button id="left">Left</button>
+		<button id="up">Up</button>
+		<button id="right">Right</button>
+		<button id="down">Down</button>
+	</div>
+	<div id="splash__image">
+		<div id="progress__root">
+			<div id="progress__line"></div>
+		</div>
+		<div id="loading__image"></div>
+	
+	</div>
+	<script>
+	function simulateKeyDown(keyCode) {
+    var event = new KeyboardEvent("keydown", { keyCode: keyCode, which: keyCode });
+    document.dispatchEvent(event);
+}
+
+function simulateKeyUp(keyCode) {
+    var event = new KeyboardEvent("keyup", { keyCode: keyCode, which: keyCode });
+    document.dispatchEvent(event);
+}
+
+// Định nghĩa hàm để xử lý sự kiện 'mousedown' hoặc 'touchstart'
+function handleButtonDown(keyCode) {
+    simulateKeyDown(keyCode);
+}
+
+// Định nghĩa hàm để xử lý sự kiện 'mouseup' hoặc 'touchend'
+function handleButtonUp(keyCode) {
+    simulateKeyUp(keyCode);
+}
+
+// Thêm sự kiện cho mỗi nút
+const buttons = [
+    { elementId: 'left', keyCode: 37 },
+    { elementId: 'up', keyCode: 38 },
+    { elementId: 'right', keyCode: 39 },
+    { elementId: 'down', keyCode: 40 }
+];
+
+buttons.forEach(button => {
+    const buttonElement = document.getElementById(button.elementId);
+    buttonElement.addEventListener("mousedown", () => handleButtonDown(button.keyCode));
+    buttonElement.addEventListener("mouseup", () => handleButtonUp(button.keyCode));
+    // Xử lý cho thiết bị cảm ứng
+    buttonElement.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // Ngăn chặn các sự kiện mặc định như scroll
+        handleButtonDown(button.keyCode);
+    });
+    buttonElement.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        handleButtonUp(button.keyCode);
+    });
+});
+
+	</script>
+
+	<script>
+
+		window.addEventListener("load", () => {
+
+			
+config = {
+    "title": "Bacon_Ipsem",
+    "filename": "Bacon_Ipsem",
+    "stageScaleMode": "showAll",
+    "showFPS": false,
+    "debug": true,
+    "splash": "assets/todo.jpg",
+    "start": null,
+    "width": 1024,
+    "height": 768,
+    "x": 0,
+    "y": 0,
+    "w": "100%",
+    "h": "100%",
+    "stageAlign": null,
+    "progressParserWeigth": 1,
+    "progress": {
+        "direction": "lr",
+        "back": "#130d02",
+        "line": "#f29f01",
+        "rect": [
+            0.25,
+            0.77,
+            0.5,
+            0.01
+        ]
+    },
+    "box2dVersion": "none",
+    "binary": [
+        {
+            "name": "fonts.swf",
+            "path": "assets/fonts.swf",
+            "size": 30506
+        },
+        {
+            "name": "Xenos",
+            "path": "assets/hobo7.swf",
+            "size": 19888,
+            "resourceType": "GAME"
+        }
+    ],
+    "runtime": "js/Main.js"
+};
+const q = new URLSearchParams(location.search);
+			
+			for (let key of q.keys()){ 
+				let value = q.get(key);
+
+				if (value.includes("<boolean>") || value.includes("<bool>")) {
+					let valueWithoutClass = value.replace(/<boolean>/g,'').replace(/<bool>/g,'').toLowerCase();
+					if (["true", "t", "1"].includes(valueWithoutClass)) config[key] = true;
+					else if (["false", "f", "0"].includes(valueWithoutClass)) config[key] = false;
+					else console.warn("Unable to cast URLSearchParam '" + key + "'='" + valueWithoutClass + "' as boolean");
+				} else if (value.includes("<int>") || value.includes("<integer>") || value.includes("<number>")) {
+					let valueWithoutClass = value.replace(/<int>/g,'').replace(/<integer>/g,'').replace(/<number>/g,'');
+					config[key] = parseInt(valueWithoutClass, 10);
+				} else {
+					// treat this as string
+					config[key] = q.get(key);
+				}
+
+				// console.log({key, value, result: config[key]}); 
+			};
+			for (let key in config.binary){ config.binary[key].path = config.binary[key].path+'?v='+Math.random();};
+
+
+			Loader.init(config);
+
+			Loader.runPlayer((fill) => { }, (instance) => { })
+
+		})
+
+	</script>
 </body>
+
 </html>
