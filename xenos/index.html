@@ -85,7 +85,7 @@
     /* --------------------------------------- */
     #joystick-container {
       position: fixed;
-      bottom: 100px; /* đặt hơi cao hơn các button điều khiển mặc định */
+      bottom: 60px; /* đặt hơi cao hơn các button điều khiển mặc định */
       left: 20px;
       width: 150px;
       height: 150px;
@@ -151,9 +151,9 @@
     }
     const buttons = [
       { elementId: 'key1', keyCode: 49 },
-      { elementId: 'keyp', keyCode: 50 },
+      { elementId: 'keyp', keyCode: 80 },
       { elementId: 'keysp', keyCode: 32 },
-      { elementId: 'key2', keyCode: 80 }
+      { elementId: 'key2', keyCode: 50 }
     ];
     buttons.forEach(button => {
       const buttonElement = document.getElementById(button.elementId);
