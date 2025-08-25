@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /assets/builtins/
-Allow: /
-
-Sitemap: https://jacksmith.io/sitemap.xml
