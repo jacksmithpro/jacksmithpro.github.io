@@ -13623,7 +13623,7 @@ function Ah() {
     return te(() => {
         async function t() {
             try {
-                await Bt("./hong.jsdos", e)
+                await Bt("./dragon.jsdos", e)
             } catch (n) {
                 e.dispatch(I.actions.bndError(n.message ?? "unexpected error"))
             }
@@ -13633,7 +13633,7 @@ function Ah() {
         class: "select-window overflow-hidden flex-grow flex flex-col items-center justify-center px-8 py-8",
         children: h("div", {
             class: "text-center text-lg",
-            children: "Loading hong.jsdos..."
+            children: "Loading dragon.jsdos..."
         })
     })
 }
