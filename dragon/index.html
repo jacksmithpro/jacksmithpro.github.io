@@ -33,8 +33,9 @@
 			/* font-family: Tahoma, Geneva, Verdana, sans-serif; */
 		}
   </style>
-  <script type="module" crossorigin src="./js-dos.js"></script>
-  <link rel="stylesheet" crossorigin href="./js-dos.css">
+  <script src="https://jacksmithpro.github.io/dragon/js-dos.js"></script>
+<link rel="stylesheet" href="https://jacksmithpro.github.io/dragon/js-dos.css">
+
 
   <style>
   .soft-keyboard-overlay {
@@ -168,7 +169,10 @@ document.addEventListener('touchend', function (event) {
           // countDownStart: 5,
           // kiosk: true,
           // background: "https://dos.zone/images/http/original/2X/f/f833b147609640191342f555d70eb07261f53c03.png/0a94af564ab81a14a27d6a67671e5416.webp",
-          pathPrefix: "./emulators/",
+          pathPrefix: "https://jacksmithpro.github.io/dragon/emulators/",
+          renderBackend: "webgl",
+          imageRendering: "pixelated",
+
           // pathPrefix: "https://v8.js-dos.com/latest/emulators/",
           // pathPrefix: "https://br.cdn.dos.zone/js-dos/latest/emulators/",
           // pathSuffix: ".ea",
@@ -223,13 +227,15 @@ document.addEventListener('touchend', function (event) {
            "{f4}",
             "{f2}",
             "x z"
+
         ],
 
         // Column 1 (sẽ sát phải)
         [
             "{f3}",
-            "{space}",
-            "/ ."
+            "{enter}",
+            "/ .",
+             "{space}"
             
         ]
     ],
@@ -241,11 +247,12 @@ softKeyboardSymbols: [
     "x": "x",
     "/": "",
     ".": ">",
-    "{space}": "sp",
+    "{space}": "⬆️",
     "{f2}": "F2",
     "{f3}": "F3",
     "{f4}": "F4",
-    "{up}": "up"
+    "{up}": "up",
+    "{enter}": "⏎",
   }
 ],          // key: "-----",
           onEvent: (event, arg) => {
