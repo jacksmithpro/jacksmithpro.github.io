@@ -13052,7 +13052,7 @@ function _h(e) {
     }
     let m = 0;
     return h("div", {
-        className: "soft-keyboard-overlay fixed bottom-0 left-0 w-full h-[80vh]  z-50 bg-base-200 bg-opacity-0 flex flex-col p-2 overflow-y-auto",
+        className: "soft-keyboard-overlay absolute bottom-0 left-0 w-full h-[80vh]  z-50 bg-base-200 bg-opacity-0 flex flex-col p-2 overflow-y-auto",
         children: h("div", {
             className: "flex flex-row justify-between w-full px-4",
             children: [h("div", {
@@ -13414,7 +13414,7 @@ function xh(e) {
             l(I.actions.emuError(b.message))
         }
     }, [s, f, r, v, p, g, _]), h("div", {
-        class: "flex flex-col flex-grow h-full overflow-hidden",
+        class: "flex flex-col flex-grow h-full overflow-hidden justify-end relative",
         children: [h("div", {
             class: "bg-black h-full flex-grow overflow-hidden relative",
             children: [h("canvas", {
