@@ -1960,7 +1960,7 @@ html {
 
   left:10%;
 }
-#keyhelo5,#keyhelo6,#keyhelo8{
+#keyhelo5,#keyhelo6,#keyhelo8,#keyhelo9{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3347,9 +3347,8 @@ html {
   border-top-right-radius: inherit;
 }
 .kbd-md {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
   line-height: 1.5rem;
   min-height: 2.2em;
   min-width: 2.2em;
