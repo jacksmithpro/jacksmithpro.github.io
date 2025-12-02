@@ -1932,21 +1932,51 @@ html {
     border-radius: inherit;
   }
 }
-.kbd {
+#keyhelo7 {
+    transform-origin: right top;
+    transform: scaleX(8) scaleY(6);
+    transition: transform 0.1s ease;
+    background-color: none;
+}
+#keyhelo4 {
+    transform-origin: left top;
+    transform: scaleX(8) scaleY(6);
+    transition: transform 0.1s ease;
+    background-color: none;
+}
+
+#keyhelo1, #keyhelo2, #keyhelo3{
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-width: 1px;
-  border-color: hsl(var(--bc) / var(--tw-border-opacity));
+  border-color: none;
   --tw-border-opacity: 0.2;
   --tw-bg-opacity: 1;
-  background-color: hsl(var(--b2) / var(--tw-bg-opacity));
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.534);
+ 
   border-radius: var(--rounded-btn, 0.5rem);
   border-bottom-width: 2px;
-  min-height: 2.2em;
-  min-width: 2.2em;
+
+  left:10%;
+}
+#keyhelo5,#keyhelo6,#keyhelo8{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: none;
+  --tw-border-opacity: 0.2;
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, 0.534);
+
+  border-radius: var(--rounded-btn, 0.5rem);
+  border-bottom-width: 2px;
+
+  margin-right:20%;
+}
+.kbd {
+
 }
 .link {
   cursor: pointer;
