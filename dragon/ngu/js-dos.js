@@ -13052,7 +13052,7 @@ function _h(e) {
     }
     let m = 0;
     return h("div", {
-        className: "soft-keyboard-overlay absolute bottom-0 left-0 w-full h-[80vh]  z-50 bg-base-200 bg-opacity-0 flex flex-col p-2 overflow-y-auto",
+        className: "soft-keyboard-overlay absolute bottom-0 left-0 w-full h-70  z-50 bg-base-200 bg-opacity-0 flex flex-col p-2 overflow-y-auto",
         children: h("div", {
             className: "flex flex-row justify-between w-full px-4",
             children: [h("div", {

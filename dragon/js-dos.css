@@ -3762,6 +3762,9 @@ html {
 .h-\[80vh\] {
   height: 70vh;
 }
+.h-70{
+  height:70%;
+}
 .h-full {
   height: 100%;
 }
