@@ -160,7 +160,43 @@ boot c:
   </script>
   <script>
     Dos(document.getElementById("dos"), {
-        url: "https://jacksmithpro.github.io/dragon/dragon.jsdos",
+        url: "https://v8.js-dos.com/bundles/digger.jsdos",
+
+        // === THÊM KEYBOARD ẢO ===
+        softKeyboardLayout: [
+            [
+                // Cột trái
+                [
+                    "{f4}",
+                    "{f2}",
+                    "x z"
+                ],
+
+                // Cột phải
+                [
+                    "{f3}",
+                    "{enter}",
+                    "/ .",
+                    "{space}"
+                ]
+            ],
+        ],
+
+        softKeyboardSymbols: [
+            {
+                "z": "",
+                "x": "x",
+                "/": "",
+                ".": ">",
+                "{space}": "⬆️",
+                "{f2}": "F2",
+                "{f3}": "F3",
+                "{f4}": "F4",
+                "{up}": "up",
+                "{enter}": "⏎"
+            }
+        ]
+        // === HẾT KEYBOARD ẢO ===
     });
 </script>
 </body>
