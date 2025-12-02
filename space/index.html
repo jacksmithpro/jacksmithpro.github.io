@@ -132,13 +132,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }</style>
 <body>
-	  <script>
-    // Back button logic
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', () => {
-      window.location.href = './'; // Thay '/' bằng URL trang chủ nếu khác
-    });
-  </script>
+	
   <button id="backButton">🏠</button>
 
 	<div style="position:absolute;z-index:100;height: 100%;width: 100%;background-color: none;top:150px">
@@ -276,7 +270,13 @@
 	</div>
 
 	<!--<textarea class="emscripten" id="output" rows="8"></textarea>-->
-
+  <script>
+    // Back button logic
+    const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', () => {
+      window.location.href = '../'; // Thay '/' bằng URL trang chủ nếu khác
+    });
+  </script>
 	<script>
 		document.getElementById("canvas").getContext("webgl", { preserveDrawingBuffer: true }); // to allow screenshot for freeze frame
 

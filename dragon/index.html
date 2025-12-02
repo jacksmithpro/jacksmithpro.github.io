@@ -35,13 +35,7 @@
   </style>
   <script type="module" crossorigin src="./js-dos.js"></script>
   <link rel="stylesheet" crossorigin href="./js-dos.css">
-  <script>
-    // Back button logic
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', () => {
-      window.location.href = './'; // Thay '/' bằng URL trang chủ nếu khác
-    });
-  </script>
+
   <style>
   .soft-keyboard-overlay {
   width: 90%;
@@ -327,6 +321,13 @@ imgmount 2 sockdrive wss://sockdrive.js-dos.com:8001 dos.zone diablo_109_c
 imgmount 3 sockdrive wss://sockdrive.js-dos.com:8001 dos.zone diablo_109_d
 boot c:
 `;
+  </script>
+    <script>
+    // Back button logic
+    const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', () => {
+      window.location.href = '../'; // Thay '/' bằng URL trang chủ nếu khác
+    });
   </script>
 </body>
 
