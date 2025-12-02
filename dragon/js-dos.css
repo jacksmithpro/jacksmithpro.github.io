@@ -3351,7 +3351,7 @@ html {
   border-top-right-radius: inherit;
 }
 .kbd-md {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   font-size: 1.2rem;
   line-height: 1.5rem;
   min-height: 2.2em;
@@ -3755,7 +3755,7 @@ html {
   height: 1.5rem;
 }
 .h-\[80vh\] {
-  height: 80vh;
+  height: 85vh;
 }
 .h-full {
   height: 100%;
