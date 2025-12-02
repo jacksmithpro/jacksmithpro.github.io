@@ -3994,6 +3994,9 @@ html {
 .bg-opacity-40 {
   --tw-bg-opacity: 0.4;
 }
+.bg-opacity-0{
+  --tw-bg-opacity: 0;
+}
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;

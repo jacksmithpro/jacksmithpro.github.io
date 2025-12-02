@@ -12048,7 +12048,7 @@ function kl(e) {
             d(Ci.actions.emuError(e.message))
         }
     }), [i, s, r]), Ui("div", {
-        class: "flex flex-col flex-grow h-full overflow-hidden",
+        class: "flex flex-col flex-grow h-full overflow-hidden justify-end relative",
         children: [Ui("div", {
             class: "bg-black h-full flex-grow overflow-hidden relative",
             children: [Ui("canvas", {
