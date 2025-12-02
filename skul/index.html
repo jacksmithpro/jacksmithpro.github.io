@@ -35,6 +35,13 @@
   </style>
   <script type="module" crossorigin src="./js-dos.js"></script>
   <link rel="stylesheet" crossorigin href="./js-dos.css">
+  <script>
+    // Back button logic
+    const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', () => {
+      window.location.href = '/'; // Thay '/' bằng URL trang chủ nếu khác
+    });
+  </script>
   <style>
   .soft-keyboard-overlay {
   width: 90%;
@@ -42,6 +49,34 @@
   transform: translateX(-50%);
 }
 
+  </style>
+  <style>
+    #backButton {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #ff7f5f5c, #feb47b67);
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 999;
+    }
+
+    #backButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    #backButton:active {
+      transform: scale(0.95);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 
@@ -57,6 +92,7 @@ document.addEventListener('touchend', function (event) {
   lastTouchEnd = now;
 }, { passive: false });
 </script>
+  <button id="backButton">🏠</button>
 
   <div id="app"></div>
   <script>
