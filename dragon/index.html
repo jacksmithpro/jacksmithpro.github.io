@@ -151,7 +151,11 @@ boot c:
   <script>
     Dos(document.getElementById("dos"), {
         url: "./dragon.jsdos",
-
+         offscreenCanvas: true,
+    renderBackend: "webgl",
+    imageRendering: "pixelated",
+    renderScale: 1.2,      // scale up 20%
+    noCursor: true,        // disable emulator cursor
         // === THÊM KEYBOARD ẢO ===
         softKeyboardLayout: [
             [
@@ -185,9 +189,12 @@ boot c:
                 "{up}": "up",
                 "{enter}": "⏎"
             }
-        ]
+        ],
+         startIpxServer,
+    connectIpxAddress
         // === HẾT KEYBOARD ẢO ===
     });
+    
 </script>
 </body>
 
