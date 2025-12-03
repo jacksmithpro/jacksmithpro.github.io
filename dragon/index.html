@@ -79,7 +79,8 @@
   
   <button id="backButton">🏠</button>
 
-    <div id="dos" style="width: 100%; height: 100%"></div>
+    <div id="dos" style="width: 100%; height: 100% ; transform: scale(1.1);
+        transform-origin: center center;"></div>
   <script>
     if (window.android !== undefined && window.android.startHardwareService !== undefined) {
         window.backendHardware = (emulator) => {
@@ -152,9 +153,6 @@ boot c:
     Dos(document.getElementById("dos"), {
         url: "./dragon.jsdos",
     renderBackend: "webgl",
-    imageRendering: "pixelated",
-    renderScale: 1.2,      // scale up 20%
-renderAspect: "4/3",
         // === THÊM KEYBOARD ẢO ===
         softKeyboardLayout: [
             [
