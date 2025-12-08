@@ -95,5 +95,54 @@
       window.PINBALL_STANDALONE = true
     </script>
     <script src="javascripts/application.js" type="text/javascript"></script>
+    <script>
+      <script>
+(function() {
+  // threshold để coi là "double-tap"
+  const TWO_FINGER_DOUBLE_TAP_MS = 400;
+
+  // lưu timestamp lần two-finger tap trước
+  let lastTwoFingerTap = 0;
+
+  // target layer mà bạn muốn áp dụng (toàn trang dùng document)
+  const layer = document; // or document.querySelector('.touch-layer') if you only want that layer
+
+  // Lắng nghe touchstart để phát hiện multi-finger taps
+  layer.addEventListener('touchstart', function(e) {
+    // chỉ quan tâm khi có >= 2 ngón cùng lúc
+    if (!e.touches || e.touches.length < 2) return;
+
+    const now = Date.now();
+
+    // nếu lần two-finger tap trước rất gần -> xem là double-tap 2-finger -> chặn
+    if (now - lastTwoFingerTap <= TWO_FINGER_DOUBLE_TAP_MS) {
+      // chặn hành vi mặc định (zoom) và ngăn gửi sự kiện thêm
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      // optional: console debug
+      // console.log('Blocked two-finger double-tap');
+      lastTwoFingerTap = 0; // reset
+      return;
+    }
+
+    // nếu không phải double-tap, cập nhật timestamp (lần đầu)
+    lastTwoFingerTap = now;
+
+    // ngoài ra: bạn có thể muốn preventDefault lần chạm 2 ngón đầu tiên luôn (nếu cần)
+    // e.preventDefault();
+  }, { passive: false, capture: true });
+
+  // reset timer nếu không có touch tiếp theo trong khoảng threshold
+  // (giúp tránh false positive lâu dài)
+  setInterval(() => {
+    if (lastTwoFingerTap && (Date.now() - lastTwoFingerTap > TWO_FINGER_DOUBLE_TAP_MS)) {
+      lastTwoFingerTap = 0;
+    }
+  }, 200);
+
+})();
+</script>
+
+      </script>
   </body>
 </html>
