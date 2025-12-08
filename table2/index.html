@@ -42,7 +42,32 @@
   <body>
 
     <div style="position:absolute;z-index:100;height: 100%;width: 100%;background-color: none;top:150px">
+			<button style="height:500px;width:49%;background:none;border: none;outline: none;" ontouchstart="window.dispatchEvent(new KeyboardEvent('keydown', {
+				
+				keyCode: 37,
+				
+				which: 37,
 			
+			  }));" ontouchend="setTimeout(function(){window.dispatchEvent(new KeyboardEvent('keyup', {
+				
+				keyCode: 37,
+				
+				which: 37,
+			
+			  }))}, 50);"></button>
+			<button style="height:500px;width:49%;background:none;border: none;outline: none;"  ontouchstart="window.dispatchEvent(new KeyboardEvent('keydown', {
+				
+				keyCode: 39,
+				
+				which: 39,
+				
+			  }))" ontouchend="setTimeout(function(){window.dispatchEvent(new KeyboardEvent('keyup', {
+				
+				keyCode: 39,
+				
+				which: 39,
+			
+			  }))}, 50);"></button>
 			  <img  src="space.png" style="position:absolute;z-index:100;right:2%;height:60px;width:60px;bottom:40%;border-radius: 50%;opacity: 0.8;"   ontouchstart="window.dispatchEvent(new KeyboardEvent('keydown', {
 				
 				keyCode: 32,
