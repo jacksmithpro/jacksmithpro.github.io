@@ -14,6 +14,12 @@
 	const $ = (id) => document.getElementById(id);
 	const overlay = $("game-overlay");
 	const pauseBtn = $("btn-pause");
+	const pushBtn = $("btn-push");
+	// Show the pause + push buttons only while actually playing.
+	const setPlayBtns = (show) => {
+		if (pauseBtn) pauseBtn.hidden = !show;
+		if (pushBtn) pushBtn.hidden = !show;
+	};
 	const fsBtn = $("btn-fullscreen");
 	const rotateBtn = $("btn-rotate");
 	const screenEl = () => document.querySelector(".screen");
@@ -112,12 +118,11 @@
 	// --- Screens --------------------------------------------------------------
 	function showStart() {
 		state = "start";
-		pauseBtn.hidden = true;
+		setPlayBtns(false);
 		overlay.hidden = false;
 		overlay.innerHTML =
 			`<div class="ovl-card">
-				<div class="ovl-logo">🚀</div>
-				<h2 class="ovl-title">SPACE CADET</h2>
+				<div class="ovl-head"><div class="ovl-logo">🚀</div><h2 class="ovl-title">SPACE CADET</h2></div>
 				<div class="ovl-best">🏅 Your best: <b>${fmt(getBest())}</b></div>
 				<div class="ovl-settings">${toggleRow("sound")}${toggleRow("music")}</div>
 				<button class="ovl-play" id="ovl-play">▶ PLAY</button>
@@ -129,7 +134,7 @@
 
 	function showPause() {
 		state = "paused";
-		pauseBtn.hidden = true;
+		setPlayBtns(false);
 		overlay.hidden = false;
 		overlay.innerHTML =
 			`<div class="ovl-card">
@@ -147,7 +152,7 @@
 		// getBest() reflects Firebase, but the just-submitted score may not be
 		// queried back yet — include `last` so Best is never below this run.
 		const best = Math.max(last || 0, getBest());
-		pauseBtn.hidden = true;
+		setPlayBtns(false);
 		overlay.hidden = false;
 		overlay.innerHTML =
 			`<div class="ovl-card">
@@ -166,7 +171,7 @@
 		state = "playing";
 		overlay.hidden = true;
 		overlay.innerHTML = "";
-		pauseBtn.hidden = false;
+		setPlayBtns(true);
 		focusGame();
 	}
 
@@ -238,9 +243,9 @@
 		// Suppress the long-press selection / context callout on mobile.
 		el.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
-	bindHold($("touch-left"), "_webLeftDown", "_webLeftUp");   // left half  -> left flipper (Z)
-	bindHold($("touch-right"), "_webRightDown", "_webRightUp"); // right half -> right flipper (/)
-	bindHold($("btn-push"), "_webPlungerDown", "_webPlungerUp"); // launch ball (plunger)
+	bindHold($("btn-push"), "_webPlungerDown", "_webPlungerUp");  // launch ball (plunger)
+	bindHold($("touch-left"), "_webLeftDown", "_webLeftUp");      // left half  -> left flipper (Z)
+	bindHold($("touch-right"), "_webRightDown", "_webRightUp");   // right half -> right flipper (/)
 
 	// Keyboard: Esc toggles pause while playing/paused.
 	window.addEventListener("keydown", (e) => {
