@@ -233,6 +233,8 @@
 		el.addEventListener("pointerup", up);
 		el.addEventListener("pointercancel", up);
 		el.addEventListener("pointerleave", up);
+		// Suppress the long-press selection / context callout on mobile.
+		el.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
 	bindHold($("touch-left"), "_webLeftDown", "_webLeftUp");   // left half  -> left flipper (Z)
 	bindHold($("touch-right"), "_webRightDown", "_webRightUp"); // right half -> right flipper (/)
