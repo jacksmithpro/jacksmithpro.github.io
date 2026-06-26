@@ -189,6 +189,42 @@
 	pauseBtn.addEventListener("click", pauseGame);
 	if (fsBtn) fsBtn.addEventListener("click", toggleFullscreen);
 
+	// --- Touch controls: hold a zone/button -> press a key, release -> key up.
+	// A quick tap is stretched to a minimum hold so the flipper completes its
+	// full swing (otherwise a fast tap releases before the flipper hits the ball).
+	const MIN_HOLD = 120; // ms
+	function bindHold(el, downFn, upFn) {
+		if (!el) return;
+		let active = false, downAt = 0, upTimer = null;
+		const press = () => { const m = M(); if (m) m[downFn](); };
+		const release = () => { const m = M(); if (m) m[upFn](); };
+		const down = (e) => {
+			e.preventDefault();
+			if (state !== "playing" || !M()) return;
+			if (upTimer) { clearTimeout(upTimer); upTimer = null; }
+			active = true;
+			downAt = performance.now();
+			press();
+		};
+		const up = () => {
+			if (!active) return;
+			active = false;
+			const held = performance.now() - downAt;
+			if (held < MIN_HOLD) {
+				upTimer = setTimeout(() => { upTimer = null; release(); }, MIN_HOLD - held);
+			} else {
+				release();
+			}
+		};
+		el.addEventListener("pointerdown", down);
+		el.addEventListener("pointerup", up);
+		el.addEventListener("pointercancel", up);
+		el.addEventListener("pointerleave", up);
+	}
+	bindHold($("touch-left"), "_webLeftDown", "_webLeftUp");   // left half  -> left flipper (Z)
+	bindHold($("touch-right"), "_webRightDown", "_webRightUp"); // right half -> right flipper (/)
+	bindHold($("btn-push"), "_webPlungerDown", "_webPlungerUp"); // launch ball (plunger)
+
 	// Keyboard: Esc toggles pause while playing/paused.
 	window.addEventListener("keydown", (e) => {
 		if (e.key === "Escape") {
