@@ -1,0 +1,198 @@
+/* Bảng xếp hạng — tông tối vũ trụ, khớp với shell game */
+
+#lb-app {
+	background: rgba(22, 30, 64, .72);
+	border: 1px solid rgba(120, 150, 255, .22);
+	border-radius: 16px;
+	padding: 14px;
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+	font-size: 13px;
+	color: #e8ecff;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+	backdrop-filter: blur(6px);
+}
+
+#lb-app h3 {
+	margin: 0 0 12px;
+	font-size: 16px;
+	text-align: center;
+	letter-spacing: .3px;
+}
+
+/* Tabs ngày/tuần/toàn bộ */
+.lb-tabs {
+	display: flex;
+	gap: 6px;
+	margin-bottom: 10px;
+	background: rgba(0, 0, 0, .25);
+	padding: 4px;
+	border-radius: 10px;
+}
+
+.lb-tab {
+	flex: 1;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 7px 4px;
+	border: 0;
+	border-radius: 7px;
+	color: #97a3c7;
+	background: transparent;
+	transition: .15s;
+}
+
+.lb-tab:hover { color: #e8ecff; }
+
+.lb-tab.active {
+	color: #061029;
+	background: linear-gradient(90deg, #5ad1ff, #b06cff);
+	box-shadow: 0 4px 14px rgba(90, 209, 255, .35);
+}
+
+/* Bảng điểm */
+table.lb-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.lb-table td {
+	padding: 7px 6px;
+	border-bottom: 1px solid rgba(120, 150, 255, .12);
+	vertical-align: middle;
+}
+
+.lb-table tr:last-child td { border-bottom: 0; }
+
+.lb-rank {
+	width: 34px;
+	text-align: center;
+	font-weight: 700;
+	color: #aab6dd;
+}
+
+.lb-name {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.lb-name > img {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	flex: 0 0 auto;
+	background: #0c1330;
+}
+
+.lb-name > span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 130px;
+}
+
+.lb-score {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+	font-weight: 700;
+	color: #ffce3a;
+}
+
+tr.lb-me {
+	background: linear-gradient(90deg, rgba(90, 209, 255, .14), rgba(176, 108, 255, .1));
+}
+
+tr.lb-me .lb-name > span { font-weight: 700; color: #fff; }
+
+.lb-empty {
+	text-align: center;
+	color: #97a3c7;
+	padding: 18px 6px;
+}
+
+/* Huy hiệu cấp bậc (dùng cả trong bảng và ở header) */
+.lb-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 1;
+	padding: 3px 7px;
+	border-radius: 999px;
+	color: var(--c, #fff);
+	background: color-mix(in srgb, var(--c, #888) 16%, transparent);
+	border: 1px solid color-mix(in srgb, var(--c, #888) 45%, transparent);
+	flex: 0 0 auto;
+}
+
+/* Chân bảng: trạng thái + nút làm mới */
+.lb-foot {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+#lb-status {
+	flex: 1;
+	font-size: 11px;
+	color: #aab6dd;
+	min-height: 14px;
+}
+
+/* Nút phụ (đăng xuất, làm mới) */
+.lb-btn {
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 7px 12px;
+	border: 1px solid rgba(120, 150, 255, .3);
+	border-radius: 9px;
+	color: #cdd5f2;
+	background: rgba(12, 19, 48, .8);
+	transition: .15s;
+}
+
+.lb-btn:hover { border-color: #5ad1ff; color: #fff; }
+.lb-btn:disabled { opacity: .5; cursor: default; }
+
+/* Khu vực người dùng ở header */
+#lb-user {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+#lb-user img {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 2px solid rgba(120, 150, 255, .4);
+}
+
+#lb-user span {
+	font-weight: 600;
+	color: #e8ecff;
+	max-width: 140px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* "Rank của bạn" ở header */
+.lb-myrank {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.lb-myrank:empty { display: none; }
+
+.lb-myrank .lb-best {
+	font-size: 12px;
+	color: #97a3c7;
+	font-weight: 600;
+}
