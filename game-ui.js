@@ -201,8 +201,6 @@
 	const ready = setInterval(() => {
 		if (M()) {
 			clearInterval(ready);
-			const loader = $("game-loading");
-			if (loader) loader.hidden = true;
 			showStart();
 		}
 	}, 150);

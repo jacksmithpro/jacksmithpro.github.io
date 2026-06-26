@@ -327,7 +327,7 @@ function wire() {
 	if (screen && lbApp && "ResizeObserver" in window) {
 		const sync = () => {
 			lbApp.style.maxHeight = window.innerWidth > 920
-				? screen.offsetHeight + "px" : "";
+				? screen.offsetHeight + "px" : "75vh";
 		};
 		new ResizeObserver(sync).observe(screen);
 		window.addEventListener("resize", sync);
