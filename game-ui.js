@@ -15,10 +15,12 @@
 	const overlay = $("game-overlay");
 	const pauseBtn = $("btn-pause");
 	const pushBtn = $("btn-push");
-	// Show the pause + push buttons only while actually playing.
+	const nudgeBtn = $("btn-nudge");
+	// Show the pause + push + nudge buttons only while actually playing.
 	const setPlayBtns = (show) => {
 		if (pauseBtn) pauseBtn.hidden = !show;
 		if (pushBtn) pushBtn.hidden = !show;
+		if (nudgeBtn) nudgeBtn.hidden = !show;
 	};
 	const fsBtn = $("btn-fullscreen");
 	const rotateBtn = $("btn-rotate");
@@ -217,35 +219,38 @@
 		if (!el) return;
 		let active = false, downAt = 0, upTimer = null;
 		const press = () => { const m = M(); if (m) m[downFn](); };
-		const release = () => { const m = M(); if (m) m[upFn](); };
+		const release = () => { upTimer = null; const m = M(); if (m) m[upFn](); };
 		const down = (e) => {
 			e.preventDefault();
-			if (state !== "playing" || !M()) return;
+			if (state !== "playing" || !M() || active) return;  // ignore re-entry while held
 			if (upTimer) { clearTimeout(upTimer); upTimer = null; }
+			// Capture the pointer so we always get the matching pointerup,
+			// even if the finger slides off the zone during a fast tap.
+			try { el.setPointerCapture(e.pointerId); } catch (_) {}
 			active = true;
 			downAt = performance.now();
 			press();
 		};
-		const up = () => {
+		const up = (e) => {
 			if (!active) return;
 			active = false;
+			try { if (e && e.pointerId != null) el.releasePointerCapture(e.pointerId); } catch (_) {}
 			const held = performance.now() - downAt;
-			if (held < MIN_HOLD) {
-				upTimer = setTimeout(() => { upTimer = null; release(); }, MIN_HOLD - held);
-			} else {
-				release();
-			}
+			if (held < MIN_HOLD) upTimer = setTimeout(release, MIN_HOLD - held);
+			else release();
 		};
 		el.addEventListener("pointerdown", down);
 		el.addEventListener("pointerup", up);
 		el.addEventListener("pointercancel", up);
-		el.addEventListener("pointerleave", up);
-		// Suppress the long-press selection / context callout on mobile.
+		// Block synthetic mouse events from touches at the DOM level so they
+		// never reach the game (prevents cursor/nudge conflicts on fast taps).
+		el.addEventListener("touchstart", (e) => e.preventDefault(), { passive: false });
 		el.addEventListener("contextmenu", (e) => e.preventDefault());
 	}
 	bindHold($("btn-push"), "_webPlungerDown", "_webPlungerUp");  // launch ball (plunger)
 	bindHold($("touch-left"), "_webLeftDown", "_webLeftUp");      // left half  -> left flipper (Z)
 	bindHold($("touch-right"), "_webRightDown", "_webRightUp");   // right half -> right flipper (/)
+	bindHold($("btn-nudge"), "_webNudgeDown", "_webNudgeUp");     // nudge (X) — held briefly so it isn't un-nudged instantly
 
 	// Keyboard: Esc toggles pause while playing/paused.
 	window.addEventListener("keydown", (e) => {
