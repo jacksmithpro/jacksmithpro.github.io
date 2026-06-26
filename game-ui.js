@@ -15,6 +15,7 @@
 	const overlay = $("game-overlay");
 	const pauseBtn = $("btn-pause");
 	const fsBtn = $("btn-fullscreen");
+	const rotateBtn = $("btn-rotate");
 	const screenEl = () => document.querySelector(".screen");
 
 	// --- Clean line icons (SVG) ----------------------------------------------
@@ -26,9 +27,20 @@
 	const ICON_FS_ENTER = svg('<path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>');
 	// Exit: 4 corners pointing inward (shrink).
 	const ICON_FS_EXIT = svg('<path d="M3 8h3a2 2 0 0 0 2-2V3M21 8h-3a2 2 0 0 1-2-2V3M3 16h3a2 2 0 0 1 2 2v3M21 16h-3a2 2 0 0 0-2 2v3"/>');
+	const ICON_ROTATE = svg('<polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>');
 
 	if (pauseBtn) pauseBtn.innerHTML = ICON_PAUSE;
 	if (fsBtn) fsBtn.innerHTML = ICON_FS_ENTER;
+	if (rotateBtn) rotateBtn.innerHTML = ICON_ROTATE;
+
+	// --- Rotate the game to landscape (mobile) -------------------------------
+	function toggleRotate() {
+		const el = screenEl();
+		if (!el) return;
+		const on = el.classList.toggle("rotated");
+		document.body.classList.toggle("rotate-lock", on);
+		focusGame();
+	}
 
 	// --- Fullscreen ----------------------------------------------------------
 	function toggleFullscreen() {
@@ -188,6 +200,7 @@
 
 	pauseBtn.addEventListener("click", pauseGame);
 	if (fsBtn) fsBtn.addEventListener("click", toggleFullscreen);
+	if (rotateBtn) rotateBtn.addEventListener("click", toggleRotate);
 
 	// --- Touch controls: hold a zone/button -> press a key, release -> key up.
 	// A quick tap is stretched to a minimum hold so the flipper completes its
