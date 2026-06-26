@@ -40,8 +40,8 @@ function badgeHtml(score, withName = false) {
 
 // --- Safety limits ------------------------------------------------------------
 const MAX_SCORE = 1000000000;     // 1 billion (matches firestore.rules)
-const ROWS_SHOWN = 20;            // rows shown per board
-const FETCH_LIMIT = 200;          // fetch more, then collapse per player
+const PAGE = 20;                  // rows revealed per scroll batch
+const POOL = 500;                 // max players ranked per board
 
 // --- State --------------------------------------------------------------------
 let app, auth, db, provider;
@@ -49,6 +49,8 @@ let currentUser = null;
 let pendingScore = null;          // score waiting to be sent after sign-in
 let activeTab = "all";
 let configured = false;
+let allRows = [];                 // full ranked list for the active tab
+let shown = 0;                    // how many rows currently rendered
 
 const $ = (id) => document.getElementById(id);
 
@@ -208,9 +210,9 @@ async function fetchScores(sinceDate) {
 		q = query(col,
 			where("createdAt", ">=", Timestamp.fromDate(sinceDate)),
 			orderBy("createdAt", "desc"),
-			limit(FETCH_LIMIT));
+			limit(POOL));
 	} else {
-		q = query(col, orderBy("score", "desc"), limit(FETCH_LIMIT));
+		q = query(col, orderBy("score", "desc"), limit(POOL));
 	}
 	const snap = await getDocs(q);
 	const rows = [];
@@ -225,7 +227,7 @@ function bestPerUser(rows) {
 		const cur = best.get(r.uid);
 		if (!cur || r.score > cur.score) best.set(r.uid, r);
 	}
-	return Array.from(best.values()).sort((a, b) => b.score - a.score).slice(0, ROWS_SHOWN);
+	return Array.from(best.values()).sort((a, b) => b.score - a.score);
 }
 
 async function loadLeaderboard() {
@@ -236,23 +238,29 @@ async function loadLeaderboard() {
 		let since = null;
 		if (activeTab === "today") since = startOfToday();
 		else if (activeTab === "week") since = startOfWeek();
-		const rows = bestPerUser(await fetchScores(since));
-		renderRows(rows);
+		allRows = bestPerUser(await fetchScores(since));
+		shown = 0;
+		body.innerHTML = "";
+		const sc = $("lb-scroll");
+		if (sc) sc.scrollTop = 0;
+		renderPage();
+		updateRankLine();
 	} catch (e) {
 		console.error(e);
 		body.innerHTML = `<tr><td colspan="3" class="lb-empty">Failed to load. Check the console (an index may be required).</td></tr>`;
 	}
 }
 
-function renderRows(rows) {
+// Reveal the next batch of rows (infinite scroll).
+function renderPage() {
 	const body = $("lb-rows");
-	if (!rows.length) {
+	if (!allRows.length) {
 		body.innerHTML = `<tr><td colspan="3" class="lb-empty">No scores yet. Be the first!</td></tr>`;
 		return;
 	}
-	const medals = ["🥇", "🥈", "🥉"];
-	body.innerHTML = rows.map((r, i) => {
-		const rank = medals[i] || (i + 1);
+	const next = allRows.slice(shown, shown + PAGE);
+	const html = next.map((r, i) => {
+		const rank = shown + i + 1;
 		const mine = currentUser && r.uid === currentUser.uid ? " lb-me" : "";
 		return `<tr class="${mine}">` +
 			`<td class="lb-rank">${rank}</td>` +
@@ -260,6 +268,34 @@ function renderRows(rows) {
 			`<span>${escapeHtml(r.name || "Player")}</span>${badgeHtml(r.score)}</td>` +
 			`<td class="lb-score">${Number(r.score).toLocaleString("en-US")}</td></tr>`;
 	}).join("");
+	body.insertAdjacentHTML("beforeend", html);
+	shown += next.length;
+}
+
+function onScroll() {
+	const sc = $("lb-scroll");
+	if (!sc || shown >= allRows.length) return;
+	if (sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 80) renderPage();
+}
+
+// Show "You: rank / total" for the current player.
+function updateRankLine() {
+	const el = $("lb-rankline");
+	if (!el) return;
+	const total = allRows.length;
+	if (!currentUser) {
+		el.innerHTML = total
+			? `<span>${total.toLocaleString("en-US")} players</span>`
+			: "";
+		return;
+	}
+	const idx = allRows.findIndex((r) => r.uid === currentUser.uid);
+	if (idx < 0) {
+		el.innerHTML = `<span>Your rank</span><b>— / ${total.toLocaleString("en-US")}</b>`;
+	} else {
+		el.innerHTML = `<span>Your rank</span>` +
+			`<b>${(idx + 1).toLocaleString("en-US")} / ${total.toLocaleString("en-US")}</b>`;
+	}
 }
 
 function setTab(tab) {
@@ -281,6 +317,23 @@ function wire() {
 	$("lb-refresh").addEventListener("click", loadLeaderboard);
 	document.querySelectorAll(".lb-tab").forEach((b) =>
 		b.addEventListener("click", () => setTab(b.dataset.tab)));
+
+	const sc = $("lb-scroll");
+	if (sc) sc.addEventListener("scroll", onScroll, { passive: true });
+
+	// Cap the leaderboard panel height to the game screen height (desktop).
+	const screen = document.querySelector(".screen");
+	const lbApp = $("lb-app");
+	if (screen && lbApp && "ResizeObserver" in window) {
+		const sync = () => {
+			lbApp.style.maxHeight = window.innerWidth > 920
+				? screen.offsetHeight + "px" : "";
+		};
+		new ResizeObserver(sync).observe(screen);
+		window.addEventListener("resize", sync);
+		sync();
+	}
+
 	init();
 }
 

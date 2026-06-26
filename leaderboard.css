@@ -1,6 +1,8 @@
 /* Bảng xếp hạng — tông tối vũ trụ, khớp với shell game */
 
 #lb-app {
+	display: flex;
+	flex-direction: column;
 	background: rgba(22, 30, 64, .72);
 	border: 1px solid rgba(120, 150, 255, .22);
 	border-radius: 16px;
@@ -10,7 +12,32 @@
 	color: #e8ecff;
 	box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
 	backdrop-filter: blur(6px);
+	overflow: hidden;
 }
+
+/* Scrollable rows area — fills remaining height, scrolls when overflowing */
+.lb-scroll {
+	flex: 1 1 auto;
+	overflow-y: auto;
+	min-height: 140px;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(120, 150, 255, .4) transparent;
+}
+.lb-scroll::-webkit-scrollbar { width: 8px; }
+.lb-scroll::-webkit-scrollbar-thumb {
+	background: rgba(120, 150, 255, .35); border-radius: 8px;
+}
+
+/* "Your rank / total" line */
+.lb-rankline {
+	display: flex; align-items: center; justify-content: space-between;
+	gap: 8px; margin-bottom: 8px; padding: 7px 10px;
+	border-radius: 9px; font-size: 12px;
+	background: rgba(90, 209, 255, .08); border: 1px solid rgba(120, 150, 255, .2);
+	color: #aab6dd;
+}
+.lb-rankline:empty { display: none; }
+.lb-rankline b { color: #5ad1ff; font-variant-numeric: tabular-nums; font-size: 13px; }
 
 #lb-app h3 {
 	margin: 0 0 12px;
