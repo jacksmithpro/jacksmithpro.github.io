@@ -41,7 +41,10 @@
 
 	if (pauseBtn) pauseBtn.innerHTML = ICON_PAUSE;
 	if (fsBtn) fsBtn.innerHTML = ICON_FS_ENTER;
-	if (rotateBtn) rotateBtn.innerHTML = ICON_ROTATE;
+	// Rotate button shows the rotate icon in portrait, the expand icon in landscape
+	// (CSS picks which one). Both trigger the same CSS-based fill (works on iPad).
+	if (rotateBtn) rotateBtn.innerHTML =
+		`<span class="ic-rot">${ICON_ROTATE}</span><span class="ic-exp">${ICON_FS_ENTER}</span>`;
 
 	// --- Rotate the game to landscape (mobile) -------------------------------
 	function toggleRotate() {
