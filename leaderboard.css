@@ -159,6 +159,9 @@ tr.lb-me .lb-name > span { font-weight: 700; color: #fff; }
 	flex: 0 0 auto;
 }
 
+.lb-badge .medal { width: 14px; height: 16px; flex: 0 0 auto; }
+.medal { display: inline-block; vertical-align: middle; }
+
 /* Chân bảng: trạng thái + nút làm mới */
 .lb-foot {
 	display: flex;

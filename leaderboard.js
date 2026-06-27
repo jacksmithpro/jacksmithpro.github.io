@@ -18,15 +18,25 @@ import { firebaseConfig } from "./firebase-config.js";
 // Ordered HIGH to LOW. The `min` thresholds must match the legend in the HTML.
 // To tune how hard the badges are to earn, just edit the `min` numbers here.
 const TIERS = [
-	{ name: "Legend",   min: 50000000, color: "#ff4d6d", icon: "👑" },
-	{ name: "Master",   min: 25000000, color: "#b06cff", icon: "⚔️" },
-	{ name: "Diamond",  min: 12000000, color: "#5ad1ff", icon: "💎" },
-	{ name: "Platinum", min:  5000000, color: "#3fe0c5", icon: "🛡️" },
-	{ name: "Gold",     min:  2000000, color: "#ffce3a", icon: "🥇" },
-	{ name: "Silver",   min:   750000, color: "#cdd6e0", icon: "🥈" },
-	{ name: "Bronze",   min:   250000, color: "#e08b4c", icon: "🥉" },
-	{ name: "Iron",     min:        0, color: "#8b97a3", icon: "🔩" },
+	{ name: "Legend",   min: 100000000, color: "#ff4d6d" },
+	{ name: "Master",   min:  50000000, color: "#b06cff" },
+	{ name: "Diamond",  min:  20000000, color: "#5ad1ff" },
+	{ name: "Platinum", min:  15000000, color: "#3fe0c5" },
+	{ name: "Gold",     min:  10000000, color: "#ffce3a" },
+	{ name: "Silver",   min:   5000000, color: "#cdd6e0" },
+	{ name: "Bronze",   min:   1000000, color: "#e08b4c" },
+	{ name: "Iron",     min:         0, color: "#8b97a3" },
 ];
+
+// Circular medal with two ribbon banners — uses currentColor (set per tier).
+const MEDAL_SVG =
+	'<svg class="medal" viewBox="0 0 24 28" fill="none" aria-hidden="true">' +
+	'<path d="M7 12 4 27 7.5 24 11 27 11 14Z" fill="currentColor" opacity=".5"/>' +
+	'<path d="M17 12 20 27 16.5 24 13 27 13 14Z" fill="currentColor" opacity=".5"/>' +
+	'<circle cx="12" cy="10" r="8.5" fill="currentColor"/>' +
+	'<circle cx="12" cy="10" r="8.5" stroke="rgba(0,0,0,.22)"/>' +
+	'<circle cx="12" cy="10" r="5.6" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/>' +
+	'<ellipse cx="9.3" cy="7" rx="3" ry="2" fill="rgba(255,255,255,.4)"/></svg>';
 
 function tierFor(score) {
 	return TIERS.find((t) => score >= t.min) || TIERS[TIERS.length - 1];
@@ -35,7 +45,7 @@ function tierFor(score) {
 function badgeHtml(score, withName = false) {
 	const t = tierFor(score);
 	return `<span class="lb-badge" style="--c:${t.color}" title="${t.name}">` +
-		`${t.icon}${withName ? " " + t.name : ""}</span>`;
+		`${MEDAL_SVG}${withName ? " " + t.name : ""}</span>`;
 }
 
 // --- Safety limits ------------------------------------------------------------
@@ -149,7 +159,7 @@ async function updateMyRank() {
 
 		const t = tierFor(best);
 		el.innerHTML = best > 0
-			? `<span class="lb-badge" style="--c:${t.color}">${t.icon} ${t.name}</span>` +
+			? `<span class="lb-badge" style="--c:${t.color}">${MEDAL_SVG} ${t.name}</span>` +
 			  `<span class="lb-best">${best.toLocaleString("en-US")} pts</span>`
 			: `<span class="lb-best">Play a game to earn a badge!</span>`;
 	} catch (e) {
@@ -180,7 +190,7 @@ async function submitScore(score) {
 			createdAt: serverTimestamp()
 		});
 		const t = tierFor(score);
-		setStatus(`Saved ${score.toLocaleString("en-US")} pts — rank ${t.icon} ${t.name}!`);
+		setStatus(`Saved ${score.toLocaleString("en-US")} pts — rank ${t.name}!`);
 		loadLeaderboard();
 		updateMyRank();
 	} catch (e) {
