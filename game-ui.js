@@ -90,32 +90,51 @@
 		if (c) { try { c.focus(); } catch (e) {} }
 	}
 
-	// --- Reusable toggle button markup ---------------------------------------
-	function soundIcon(on) { return on ? "🔊" : "🔇"; }
-
-	function toggleRow(kind) {
-		const on = kind === "sound" ? soundOn() : musicOn();
-		const icon = kind === "sound" ? soundIcon(on) : "🎵";
-		const label = kind === "sound" ? "Sound" : "Music";
-		return `<button class="ovl-toggle ${on ? "on" : "off"}" data-toggle="${kind}" ` +
-			`role="switch" aria-checked="${on}">` +
-			`<span class="ovl-label"><span class="ovl-ic">${icon}</span> ${label}</span>` +
-			`<span class="ovl-switch"></span></button>`;
+	// --- Volume sliders ------------------------------------------------------
+	const VOL_KEY = { sound: "scp_vol_sound", music: "scp_vol_music" };
+	function getVol(kind) {
+		const v = parseInt(localStorage.getItem(VOL_KEY[kind]), 10);
+		return Number.isFinite(v) ? Math.max(0, Math.min(100, v)) : 50;  // default 50%
+	}
+	function applyVol(kind, v) {
+		const m = M();
+		if (!m) return;
+		// Non-linear (square) curve: the lower part of the bar maps to a small
+		// volume range, so quiet levels are easy to pick (slider 25% ≈ 6% volume,
+		// 50% ≈ 25%, 100% = 100%). The displayed number stays the slider position.
+		const actual = Math.round(Math.pow(v / 100, 2) * 100);
+		if (kind === "sound" && m._webSetSoundVolume) m._webSetSoundVolume(actual);
+		if (kind === "music" && m._webSetMusicVolume) m._webSetMusicVolume(actual);
+	}
+	function applyAllVolumes() {
+		applyVol("sound", getVol("sound"));
+		applyVol("music", getVol("music"));
 	}
 
-	function wireToggles(root) {
-		root.querySelectorAll("[data-toggle]").forEach((btn) => {
-			btn.addEventListener("click", () => {
-				const m = M();
-				if (!m) return;
-				const kind = btn.dataset.toggle;
-				const nowOn = kind === "sound" ? !!m._webToggleSound() : !!m._webToggleMusic();
-				btn.classList.toggle("on", nowOn);
-				btn.classList.toggle("off", !nowOn);
-				btn.setAttribute("aria-checked", String(nowOn));
-				if (kind === "sound") btn.querySelector(".ovl-ic").textContent = soundIcon(nowOn);
-				// Don't let toggling Music ON preview-play before the game starts.
-				if (kind === "music" && (state === "start" || state === "gameover")) stopMusic();
+	function sliderRow(kind) {
+		const v = getVol(kind);
+		const icon = kind === "sound" ? "🔊" : "🎵";
+		const label = kind === "sound" ? "Sound" : "Music";
+		return `<div class="ovl-vol">` +
+			`<span class="ovl-vol-label">${icon} ${label}</span>` +
+			`<input type="range" class="ovl-slider" data-vol="${kind}" min="0" max="100" value="${v}" ` +
+			`aria-label="${label} volume">` +
+			`<span class="ovl-vol-val" data-volval="${kind}">${v}</span>` +
+			`</div>`;
+	}
+
+	function wireSliders(root) {
+		root.querySelectorAll("[data-vol]").forEach((sl) => {
+			const setFill = () => { sl.style.backgroundSize = (parseInt(sl.value, 10) || 0) + "% 100%"; };
+			setFill();
+			sl.addEventListener("input", () => {
+				const kind = sl.dataset.vol;
+				const v = parseInt(sl.value, 10) || 0;
+				localStorage.setItem(VOL_KEY[kind], String(v));
+				applyVol(kind, v);
+				setFill();
+				const val = root.querySelector(`[data-volval="${kind}"]`);
+				if (val) val.textContent = v;
 			});
 		});
 	}
@@ -129,10 +148,10 @@
 			`<div class="ovl-card">
 				<div class="ovl-head"><div class="ovl-logo">🚀</div><h2 class="ovl-title">SPACE CADET</h2></div>
 				<div class="ovl-best">🏅 Your best: <b>${fmt(getBest())}</b></div>
-				<div class="ovl-settings">${toggleRow("sound")}${toggleRow("music")}</div>
+				<div class="ovl-settings">${sliderRow("sound")}${sliderRow("music")}</div>
 				<button class="ovl-play" id="ovl-play">▶ PLAY</button>
 			</div>`;
-		wireToggles(overlay);
+		wireSliders(overlay);
 		stopMusic();   // keep the Start screen silent until the player hits Play
 		$("ovl-play").addEventListener("click", startGame);
 	}
@@ -144,10 +163,10 @@
 		overlay.innerHTML =
 			`<div class="ovl-card">
 				<h2 class="ovl-title">PAUSED</h2>
-				<div class="ovl-settings">${toggleRow("sound")}${toggleRow("music")}</div>
+				<div class="ovl-settings">${sliderRow("sound")}${sliderRow("music")}</div>
 				<button class="ovl-play" id="ovl-resume">▶ RESUME</button>
 			</div>`;
-		wireToggles(overlay);
+		wireSliders(overlay);
 		$("ovl-resume").addEventListener("click", resumeGame);
 	}
 
@@ -267,6 +286,7 @@
 	const ready = setInterval(() => {
 		if (M()) {
 			clearInterval(ready);
+			applyAllVolumes();   // start at saved volume (default 50%)
 			showStart();
 		}
 	}, 150);
